@@ -128,3 +128,43 @@ Accesible para todos los usuarios:
 
 ## 🚀 Conclusión  
 Este proyecto es un sistema completo para la **gestión de repuestos y servicios de motocicletas**, ofreciendo herramientas tanto para **administradores** como para **clientes**, facilitando la compra, venta y administración de servicios en línea.  
+
+## Instantáneas del sistema de algunas funciones:
+
+## Lado público
+
+<img width="750" height="379" alt="image" src="https://github.com/user-attachments/assets/9cf0fb4a-2b5f-4202-9681-04f6fad1a0c5" />
+<img width="1579" height="791" alt="image" src="https://github.com/user-attachments/assets/eda18063-2bbc-4d77-acd5-65bb8487c676" />
+<img width="1568" height="789" alt="image" src="https://github.com/user-attachments/assets/8ca9b48a-fe79-4972-8ea0-de0cb2cebf2f" />
+<img width="1535" height="802" alt="image" src="https://github.com/user-attachments/assets/8e4e6611-5c02-40e2-9b24-6aa42e46bc79" />
+
+## Lado del cliente
+
+<img width="1600" height="571" alt="image" src="https://github.com/user-attachments/assets/2820f33a-5f0e-4e1f-8949-8889f1933125" />
+<img width="1448" height="649" alt="image" src="https://github.com/user-attachments/assets/4e01162c-ee6c-4c1f-a15b-0979f52c0e25" />
+<img width="1506" height="576" alt="image" src="https://github.com/user-attachments/assets/4e5ea534-5f9f-4bf4-9ac2-0f3421c2434a" />
+<img width="1470" height="695" alt="image" src="https://github.com/user-attachments/assets/cc1bf8ff-5085-4bd1-9cdb-2c6de0d96994" />
+<img width="1600" height="594" alt="image" src="https://github.com/user-attachments/assets/a77b07ab-e071-4969-a6bf-71bcd7a3ca99" />
+
+## Lado del administrador
+
+<img width="1600" height="770" alt="image" src="https://github.com/user-attachments/assets/e824d86d-2fd5-45af-b54e-05eafd97963d" />
+<img width="1600" height="767" alt="image" src="https://github.com/user-attachments/assets/76f7b5c3-5bda-49dc-a878-e7b11cfbb1fe" />
+<img width="1600" height="693" alt="image" src="https://github.com/user-attachments/assets/8254efc0-56aa-438a-8999-78efb6d6f2da" />
+<img width="1588" height="734" alt="image" src="https://github.com/user-attachments/assets/8abd87a5-e6a0-4ca8-a1a3-9e9c0805a1a7" />
+<img width="1600" height="765" alt="image" src="https://github.com/user-attachments/assets/96ea94c2-b0a4-4b4a-baca-f615d4570f0d" />
+<img width="1600" height="763" alt="image" src="https://github.com/user-attachments/assets/94a2e628-d061-4871-8669-2f8e78e3e459" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
