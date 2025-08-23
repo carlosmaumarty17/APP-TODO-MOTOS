@@ -9,7 +9,7 @@
                 <span class="info-box-text">Total Brands</span>
                 <span class="info-box-number">
                   <?php 
-                    $inv = $conn->query("SELECT count(id) as total FROM brand_list where delete_flag = 0 ")->fetch_assoc()['total'];
+                    $inv = $conn->query("SELECT COUNT(*) as total FROM brand_list where delete_flag = 0 ")->fetch_assoc()['total'];
                     echo number_format($inv);
                   ?>
                   <?php ?>
@@ -28,7 +28,7 @@
                 <span class="info-box-text">Total Category</span>
                 <span class="info-box-number">
                   <?php 
-                    $inv = $conn->query("SELECT count(id) as total FROM categories where delete_flag = 0 ")->fetch_assoc()['total'];
+                    $inv = $conn->query("SELECT COUNT(*) as total FROM categories where delete_flag = 0 ")->fetch_assoc()['total'];
                     echo number_format($inv);
                   ?>
                   <?php ?>
@@ -47,7 +47,7 @@
                 <span class="info-box-text">Mechanics</span>
                 <span class="info-box-number">
                   <?php 
-                    $mechanics = $conn->query("SELECT sum(id) as total FROM `mechanics_list` where status = '1' ")->fetch_assoc()['total'];
+                    $mechanics = $conn->query("SELECT COUNT(*) as total FROM `mechanics_list` where status = '1' ")->fetch_assoc()['total'];
                     echo number_format($mechanics);
                   ?>
                 </span>
@@ -69,7 +69,7 @@
                 <span class="info-box-text">Services</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `service_list` where status = 1 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `service_list` where status = 1 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -86,7 +86,7 @@
                 <span class="info-box-text">Registered Clients</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `client_list` where status = 1 and delete_flag = 0 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `client_list` where status = 1 and delete_flag = 0 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -103,7 +103,7 @@
                 <span class="info-box-text">Pending Orders</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `order_list` where status = 0 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `order_list` where status = 0 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -120,7 +120,7 @@
                 <span class="info-box-text">Confirmed Orders</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `order_list` where status = 1 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `order_list` where status = 1 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -137,7 +137,7 @@
                 <span class="info-box-text">Orders For Delivery</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `order_list` where status = 2 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `order_list` where status = 2 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -154,7 +154,7 @@
                 <span class="info-box-text">On the Way Orders</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `order_list` where status = 3 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `order_list` where status = 3 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -171,7 +171,7 @@
                 <span class="info-box-text">Delivered Orders</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `order_list` where status = 4 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `order_list` where status = 4 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -188,7 +188,7 @@
                 <span class="info-box-text">Cancelled Orders</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `order_list` where status =5 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `order_list` where status = 5 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>
@@ -205,7 +205,7 @@
                 <span class="info-box-text">Finished Requests</span>
                 <span class="info-box-number">
                 <?php 
-                    $services = $conn->query("SELECT sum(id) as total FROM `service_requests` where status = 3 ")->fetch_assoc()['total'];
+                    $services = $conn->query("SELECT COUNT(*) as total FROM `service_requests` where status = 3 ")->fetch_assoc()['total'];
                     echo number_format($services);
                   ?>
                 </span>

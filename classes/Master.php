@@ -513,43 +513,72 @@ Class Master extends DBConnection {
 			}
 		} 
 		$ref_code = $pref.$code;
-		$sql1 = "INSERT INTO `order_list` (`ref_code`,`client_id`,`delivery_address`) VALUES ('{$ref_code}','{$client_id}','{$delivery_address}')";
+		
+		// Generar referencia única para Wompi
+		$ref_code = 'WMPI_' . time() . '_' . uniqid();
+		
+		// Calcular el total del carrito
+		$total_amount = 0;
+		$cart = $this->conn->query("SELECT c.*,p.price FROM cart_list c inner join product_list p on c.product_id = p.id where c.client_id = '{$_POST['client_id']}'");
+		while($row = $cart->fetch_assoc()){
+			$total_amount += ($row['price'] * $row['quantity']);
+		}
+		
+		// Insertar el pedido con los datos de pago
+		$sql1 = "INSERT INTO `order_list` 
+			(`ref_code`, `client_id`, `delivery_address`, `total_amount`) 
+			VALUES 
+			('{$ref_code}','{$_POST['client_id']}','{$delivery_address}','{$total_amount}')";
+			
 		$save = $this->conn->query($sql1);
+		
 		if($save){
 			$oid = $this->conn->insert_id;
 			$data = "";
-			$total_amount = 0;
-			$cart = $this->conn->query("SELECT c.*,p.price FROM cart_list c inner join product_list p on c.product_id = p.id where c.client_id = '{$client_id}'");
+			$cart = $this->conn->query("SELECT c.*,p.price FROM cart_list c inner join product_list p on c.product_id = p.id where c.client_id = '{$_POST['client_id']}'");
+			
 			while($row = $cart->fetch_assoc()){
 				if(!empty($data)) $data .= ", ";
 				$data .= "('{$oid}','{$row['product_id']}','{$row['quantity']}')";
-				$total_amount += ($row['price'] * $row['quantity']);
 			}
+			
 			if(!empty($data)){
 				$sql2 = "INSERT INTO `order_items` (`order_id`,`product_id`,`quantity`) VALUES {$data}";
 				$save2 = $this->conn->query($sql2);
+				
 				if($save2){
+					// Si el pago es con Wompi, devolver la información necesaria para el widget
 					$resp['status'] = 'success';
-					$this->conn->query("DELETE FROM `cart_list` where client_id = '{$client_id}'");
-					$this->conn->query("UPDATE `order_list` set total_amount = '{$total_amount}' where id = '{$oid}'");
-					$resp['msg'] = " Order has been place successfully.";
-				}else{
-					$resp['status'] = 'failed';
-					$resp['msg'] = " Order has failed to place.";
-					$resp['error'] = $this->conn->error;
+					$resp['message'] = 'Pedido creado exitosamente. Redirigiendo a Wompi...';
+					$resp['order_id'] = $oid;
+					$resp['reference'] = $ref_code; // Usar ref_code como referencia
+					$resp['amount'] = (int)($total_amount * 100); // Convertir a centavos para Wompi
+					$resp['currency'] = 'COP';
+					$resp['public_key'] = 'pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH';
+					$resp['redirect_url'] = base_url . '?p=my_orders';
+					
+					// Limpiar el carrito después de crear el pedido exitosamente
+					$this->conn->query("DELETE FROM `cart_list` where client_id = '{$_POST['client_id']}'");
+					session_write_close();
+				} else {
+					$resp['status'] = 'error';
+					$resp['message'] = 'Error al guardar los items del pedido';
 					$this->conn->query("DELETE FROM `order_list` where id = '{$oid}'");
 				}
 			}else{
 				$resp['status'] = 'failed';
-				$resp['msg'] = " Cart is empty.";
+				$resp['msg'] = "El carrito está vacío.";
 			}
 		}else{
 			$resp['status'] = 'failed';
-			$resp['msg'] = " Order has failed to place.";
+			$resp['msg'] = "Error al crear el pedido.";
 			$resp['error'] = $this->conn->error;
 		}
-		if($resp['status'] == 'success')
-			$this->settings->set_flashdata('success',$resp['msg']);
+		
+		if($resp['status'] == 'success' && !isset($resp['order_id'])) {
+			$this->settings->set_flashdata('success', $resp['msg']);
+		}
+		
 		return json_encode($resp);
 	}
 	function cancel_order(){
