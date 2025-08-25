@@ -36,49 +36,49 @@
   <div class="d-flex h-100 justify-content-center align-items-center col-lg-7 bg-gradient-navy text-dark">
     <div class="card card-outline card-primary w-75">
       <div class="card-header text-center">
-        <a href="./" class="text-decoration-none text-dark"><b>Create an Account</b></a>
+        <a href="./" class="text-decoration-none text-dark"><b>Crear una Cuenta</b></a>
       </div>
       <div class="card-body">
         <form id="register-frm" action="" method="post">
           <input type="hidden" name="id">
           <div class="row">
             <div class="form-group col-md-6">
-                <input type="text" name="firstname" id="firstname" placeholder="Enter First Name" autofocus class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">First Name</small>
+                <input type="text" name="firstname" id="firstname" placeholder="Ingrese sus nombres" autofocus class="form-control form-control-sm form-control-border" required>
+                <small class="ml-3">Nombres</small>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" name="middlename" id="middlename" placeholder="Enter Middle Name (optional)" class="form-control form-control-sm form-control-border">
-                <small class="ml-3">Middle Name</small>
+                <input type="text" name="middlename" id="middlename" placeholder="Ingrese segundo nombre (opcional)" class="form-control form-control-sm form-control-border">
+                <small class="ml-3">Segundo Nombre</small>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" name="lastname" id="lastname" placeholder="Enter Last Name" class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Last Name</small>
+                <input type="text" name="lastname" id="lastname" placeholder="Ingrese sus apellidos" class="form-control form-control-sm form-control-border" required>
+                <small class="ml-3">Apellidos</small>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-6">
                   <select name="lastname" id="lastname" class="custom-select custom-select-sm form-control-border" required>
-                    <option>Male</option>
-                    <option>Female</option>
+                    <option>Masculino</option>
+                    <option>Femenino</option>
                   </select>
-                  <small class="ml-3">Gender</small>
+                  <small class="ml-3">Género</small>
             </div>
             <div class="form-group col-md-6">
-                <input type="text" name="contact" id="contact" placeholder="Enter Contact #" class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Contact #</small>
+                <input type="text" name="contact" id="contact" placeholder="Ingrese número de contacto" class="form-control form-control-sm form-control-border" required>
+                <small class="ml-3">Teléfono de contacto</small>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-md-12">
-              <small class="ml-3">Address</small>
-              <textarea name="address" id="address" rows="3" class="form-control form-control-sm rounded-0" placeholder="Block 6 Lot 23, Here Subd., There City, Anywhere, 2306"></textarea>
+              <small class="ml-3">Dirección</small>
+              <textarea name="address" id="address" rows="3" class="form-control form-control-sm rounded-0" placeholder="Calle 123 #45-67, Barrio, Ciudad, País"></textarea>
             </div>
           </div>
           <hr>
           <div class="row">
             <div class="form-group col-md-6">
-                <input type="email" name="email" id="email" placeholder="jsmith@sample.com" class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Email</small>
+                <input type="email" name="email" id="email" placeholder="correo@ejemplo.com" class="form-control form-control-sm form-control-border" required>
+                <small class="ml-3">Correo electrónico</small>
             </div>
           </div>
           <div class="row">
@@ -89,7 +89,7 @@
                     <span class="input-append-text text-sm"><i class="fa fa-eye-slash text-muted pass_type" data-type="password"></i></span>
                   </div>
                 </div>
-                <small class="ml-3">Password</small>
+                <small class="ml-3">Contraseña</small>
             </div>
             <div class="form-group col-md-6">
                 <div class="input-group">
@@ -98,22 +98,22 @@
                     <span class="input-append-text text-sm"><i class="fa fa-eye-slash text-muted pass_type" data-type="password"></i></span>
                   </div>
                 </div>
-                <small class="ml-3">Confirm Password</small>
+                <small class="ml-3">Confirmar Contraseña</small>
             </div>
           </div>
           <div class="row align-items-center">
             <div class="col-8">
-              <a href="<?php echo base_url ?>">Back to Shop</a>
+              <a href="<?php echo base_url ?>">Volver a la tienda</a>
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-sm btn-flat btn-block">Register</button>
+              <button type="submit" class="btn btn-primary btn-sm btn-flat btn-block">Registrarse</button>
             </div>
             <!-- /.col -->
           </div>
           <div class="row">
               <div class="col-12 text-center">
-              <a href="<?php echo base_url.'login.php' ?>">Already have an Account</a>
+              <a href="<?php echo base_url.'login.php' ?>">¿Ya tienes una cuenta?</a>
               </div>
           </div>
         </form>
@@ -161,7 +161,7 @@
        var el = $('<div>')
             el.hide()
       if($('#password').val() != $('#cpassword').val()){
-        el.addClass('alert alert-danger err-msg').text('Password does not match.');
+        el.addClass('alert alert-danger err-msg').text('Las contraseñas no coinciden.');
         _this.prepend(el)
         el.show('slow')
         return false;
@@ -178,7 +178,7 @@
                 dataType: 'json',
 				error:err=>{
 					console.log(err)
-					alert_toast("An error occured",'error');
+					alert_toast("Ocurrió un error",'error');
 					end_loader();
 				},
 				success:function(resp){
@@ -189,7 +189,7 @@
               _this.prepend(el)
               el.show('slow')
           }else{
-						alert_toast("An error occured",'error');
+						alert_toast("Ocurrió un error",'error');
 						end_loader();
                         console.log(resp)
 					}

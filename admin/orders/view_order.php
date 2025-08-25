@@ -19,42 +19,42 @@ if(isset($_GET['id'])){
 </style>
 <div class="card card-outline card-dark shadow rounded0-0">
     <div class="card-header">
-        <h3 class="card-title"><b>Order Details</b></h3>
+        <h3 class="card-title"><b>Detalles del Pedido</b></h3>
         <div class="card-tools">
-            <button class="btn btn-primary btn-flat btn-sm" type="button" id="update_status"><i class="fa fa-edit"></i> Update Status</button>
-            <button class="btn btn-danger btn-flat btn-sm" type="button" id="delete_order"><i class="fa fa-trash"></i> Delete</button>
-            <a class="btn btn-default btn-flat border btn-sm" href="./?page=orders"><i class="fa fa-angle-left"></i> Back to List</a>
+            <button class="btn btn-primary btn-flat btn-sm" type="button" id="update_status"><i class="fa fa-edit"></i> Actualizar Estado</button>
+            <button class="btn btn-danger btn-flat btn-sm" type="button" id="delete_order"><i class="fa fa-trash"></i> Eliminar</button>
+            <a class="btn btn-default btn-flat border btn-sm" href="./?page=orders"><i class="fa fa-angle-left"></i> Volver al Listado</a>
         </div>
     </div>
     <div class="card-body">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
-                    <label for="" class="text-muted">Reference Code</label>
+                    <label for="" class="text-muted">Código de Referencia</label>
                     <div class="ml-3"><b><?= isset($ref_code) ? $ref_code : "N/A" ?></b></div>
                 </div>
                 <div class="col-md-6">
-                    <label for="" class="text-muted">Date Ordered</label>
+                    <label for="" class="text-muted">Fecha del Pedido</label>
                     <div class="ml-3"><b><?= isset($date_created) ? date("M d, Y h:i A", strtotime($date_created)) : "N/A" ?></b></div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label for="" class="text-muted">Status</label>
+                    <label for="" class="text-muted">Estado</label>
                     <div class="ml-3">
                         <?php if(isset($status)): ?>
                             <?php if($status == 0): ?>
-                                <span class="badge badge-secondary px-3 rounded-pill">Pending</span>
+                                <span class="badge badge-secondary px-3 rounded-pill">Pendiente</span>
                             <?php elseif($status == 1): ?>
-                                <span class="badge badge-primary px-3 rounded-pill">Packed</span>
+                                <span class="badge badge-primary px-3 rounded-pill">Empacado</span>
                             <?php elseif($status == 2): ?>
-                                <span class="badge badge-success px-3 rounded-pill">For Delivery</span>
+                                <span class="badge badge-success px-3 rounded-pill">Para Envío</span>
                             <?php elseif($status == 3): ?>
-                                <span class="badge badge-warning px-3 rounded-pill">On the Way</span>
+                                <span class="badge badge-warning px-3 rounded-pill">En Camino</span>
                             <?php elseif($status == 4): ?>
-                                <span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Delivered</span>
+                                <span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Entregado</span>
                             <?php else: ?>
-                                <span class="badge badge-danger px-3 rounded-pill">Cancelled</span>
+                                <span class="badge badge-danger px-3 rounded-pill">Cancelado</span>
                             <?php endif; ?>
                         <?php else: ?>
                             N/A
@@ -103,7 +103,7 @@ if(isset($_GET['id'])){
                         <?php if(isset($order_item) && $order_item->num_rows <= 0): ?>
                         <div class="d-flex align-items-center w-100 border justify-content-center">
                             <div class="col-12 flex-grow-1 flex-shrink-1 px-1 py-1">
-                                <small class="text-muted">No Data</small>
+                                <small class="text-muted">Sin Datos</small>
                             </div>
                         </div>
                         <?php endif; ?>
@@ -126,13 +126,13 @@ if(isset($_GET['id'])){
 <script>
     $(function(){
         $('#update_status').click(function(){
-            uni_modal("Update Order Status","orders/update_status.php?id=<?= isset($id) ? $id :'' ?>")
+            uni_modal("Actualizar Estado del Pedido","orders/update_status.php?id=<?= isset($id) ? $id :'' ?>")
         })
         $('#btn-cancel').click(function(){
-            _conf("Are you sure to cancel this order?","cancel_order",[])
+            _conf("¿Está seguro de cancelar este pedido?","cancel_order",[])
         })
         $('#delete_order').click(function(){
-            _conf("Are you sure to delete this order permanently?","delete_order",[])
+            _conf("¿Está seguro de eliminar este pedido permanentemente?","delete_order",[])
         })
     })
     function delete_order(){
@@ -144,7 +144,7 @@ if(isset($_GET['id'])){
             dataType:'json',
             error:err=>{
                 console.error(err)
-                alert_toast('An error occurred.','error')
+                alert_toast('Ocurrió un error.','error')
                 end_loader()
             },
             success:function(resp){
@@ -153,7 +153,7 @@ if(isset($_GET['id'])){
                 }else if(!!resp.msg){
                     alert_toast(resp.msg,'error')
                 }else{
-                    alert_toast('An error occurred.','error')
+                    alert_toast('Ocurrió un error.','error')
                 }
                 end_loader();
             }

@@ -39,23 +39,23 @@ if(isset($_GET['id'])){
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <label for="" class="text-muted">Date Requested</label>
+            <label for="" class="text-muted">Fecha de Solicitud</label>
             <div class="ml-3"><b><?= isset($date_created) ? date("M d, Y h:i A", strtotime($date_created)) : "N/A" ?></b></div>
         </div>
         <div class="col-md-6">
-            <label for="" class="text-muted">Status</label>
+            <label for="" class="text-muted">Estado</label>
             <div class="ml-3">
                 <?php if(isset($status)): ?>
                     <?php if($status == 1): ?>
-                    <span class="badge badge-primary rounded-pill px-3">Confirmed</span>
+                    <span class="badge badge-primary rounded-pill px-3">Confirmado</span>
                     <?php elseif($status == 2): ?>
-                        <span class="badge badge-warning rounded-pill px-3">On-progress</span>
+                        <span class="badge badge-warning rounded-pill px-3">En Progreso</span>
                     <?php elseif($status == 3): ?>
-                        <span class="badge badge-success rounded-pill px-3">Done</span>
+                        <span class="badge badge-success rounded-pill px-3">Completado</span>
                     <?php elseif($status == 4): ?>
-                        <span class="badge badge-danger rounded-pill px-3">Cancelled</span>
+                        <span class="badge badge-danger rounded-pill px-3">Cancelado</span>
                     <?php else: ?>
-                        <span class="badge badge-secondary rounded-pill px-3">Pending</span>
+                        <span class="badge badge-secondary rounded-pill px-3">Pendiente</span>
                     <?php endif; ?>
                 <?php else: ?>
                     N/A
@@ -65,46 +65,46 @@ if(isset($_GET['id'])){
     </div>
     <div class="row">
         <div class="col-md-6">
-            <label for="" class="text-muted">Vehicle Name</label>
+            <label for="" class="text-muted">Nombre del Vehículo</label>
             <div class="ml-3"><b><?= isset($vehicle_name) ? $vehicle_name : "N/A" ?></b></div>
         </div>
         <div class="col-md-6">
-            <label for="" class="text-muted">Vehicle Type</label>
+            <label for="" class="text-muted">Tipo de Vehículo</label>
             <div class="ml-3"><b><?= isset($vehicle_type) ? $vehicle_type : "N/A" ?></b></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <label for="" class="text-muted">Vehicle Model</label>
+            <label for="" class="text-muted">Modelo del Vehículo</label>
             <div class="ml-3"><b><?= isset($vehicle_model) ? $vehicle_model : "N/A" ?></b></div>
         </div>
         <div class="col-md-6">
-            <label for="" class="text-muted">Vehicle Registration</label>
+            <label for="" class="text-muted">Matrícula del Vehículo</label>
             <div class="ml-3"><b><?= isset($vehicle_registration_number) ? $vehicle_registration_number : "N/A" ?></b></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <label for="" class="text-muted">Requested Services</label>
+            <label for="" class="text-muted">Servicios Solicitados</label>
             <div class="ml-3"><b><?= isset($req_ser) ? $req_ser : "N/A" ?></b></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <label for="" class="text-muted">Assigned Mechanic</label>
+            <label for="" class="text-muted">Mecánico Asignado</label>
             <div class="ml-3"><b><?= isset($mechanic_id) && isset($mechanic_arr[$mechanic_id]) ? $mechanic_arr[$mechanic_id] : "N/A" ?></b></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <label for="" class="text-muted">Service Type</label>
+            <label for="" class="text-muted">Tipo de Servicio</label>
             <div class="ml-3"><b><?= isset($service_type) ? $service_type : "N/A" ?></b></div>
         </div>
         <?php 
             if(isset($service_type) && $service_type == 'Pick Up'):
         ?>
         <div class="col-md-6">
-            <label for="" class="text-muted">Pick Up Address</label>
+            <label for="" class="text-muted">Dirección de Recolección</label>
             <div class="ml-3"><b><?= isset($pickup_address) ? $pickup_address : "N/A" ?></b></div>
         </div>
         <?php endif; ?>
@@ -113,15 +113,15 @@ if(isset($_GET['id'])){
     <div class="row">
         <div class="col-12 text-right">
             <?php if(isset($status)  && $status == 0): ?>
-            <button class="btn btn-danger btn-flat btn-sm" id="btn-cancel" type="button">Cancel Order</button>
+            <button class="btn btn-danger btn-flat btn-sm" id="btn-cancel" type="button">Cancelar Servicio</button>
             <?php endif; ?>
-            <button class="btn btn-dark btn-flat btn-sm" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+            <button class="btn btn-dark btn-flat btn-sm" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
         </div>
     </div>
 </div>
 <script>
     $('#btn-cancel').click(function(){
-        _conf("Are you sure to cancel this service request?","cancel_service",[])
+        _conf("¿Está seguro de cancelar esta solicitud de servicio?","cancel_service",[])
     })
     function cancel_service(){
         start_loader();
@@ -132,7 +132,7 @@ if(isset($_GET['id'])){
             dataType:'json',
             error:err=>{
                 console.error(err)
-                alert_toast('An error occurred.','error')
+                alert_toast('Ocurrió un error.','error')
                 end_loader()
             },
             success:function(resp){
@@ -141,7 +141,7 @@ if(isset($_GET['id'])){
                 }else if(!!resp.msg){
                     alert_toast(resp.msg,'error')
                 }else{
-                    alert_toast('An error occurred.','error')
+                    alert_toast('Ocurrió un error.','error')
                 }
                 end_loader();
             }

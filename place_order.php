@@ -68,6 +68,47 @@ include_once('inc/header.php');
         </div>
     </div>
 </div>
+<!-- Cargar el script de Wompi con manejo de CORS -->
+<script>
+    // Función para cargar el script de Wompi dinámicamente
+    function loadWompiScript() {
+        return new Promise((resolve, reject) => {
+            if (window.WompiCheckout) {
+                console.log('Wompi ya está cargado');
+                resolve();
+                return;
+            }
+            
+            const script = document.createElement('script');
+            script.src = 'https://checkout.wompi.co/widget.js';
+            script.async = true;
+            script.defer = true;
+            
+            script.onload = () => {
+                console.log('Script de Wompi cargado correctamente');
+                if (window.WompiCheckout) {
+                    resolve();
+                } else {
+                    reject(new Error('WompiCheckout no está disponible después de cargar el script'));
+                }
+            };
+            
+            script.onerror = (error) => {
+                console.error('Error al cargar el script de Wompi:', error);
+                reject(new Error('No se pudo cargar el script de Wompi'));
+            };
+            
+            document.head.appendChild(script);
+        });
+    }
+    
+    // Cargar Wompi cuando el documento esté listo
+    document.addEventListener('DOMContentLoaded', () => {
+        loadWompiScript().catch(error => {
+            console.error('Error al cargar Wompi:', error);
+        });
+    });
+</script>
 <script>
     $(function(){
         // Función para formatear moneda
@@ -105,44 +146,85 @@ include_once('inc/header.php');
         // Cargar resumen del carrito al iniciar
         const totalAmount = loadCartSummary();
         
+        // Función para cargar el script de Wompi
+        function loadWompiScript(callback) {
+            if (typeof WompiCheckout !== 'undefined') {
+                if (callback) callback();
+                return;
+            }
+            
+            if (!document.querySelector('script[src*="wompi.co/widget.js"]')) {
+                const script = document.createElement('script');
+                script.src = 'https://checkout.wompi.co/widget.js';
+                script.async = true;
+                script.onload = function() {
+                    console.log('Script de Wompi cargado correctamente');
+                    if (callback) callback();
+                };
+                script.onerror = function() {
+                    console.error('Error al cargar el script de Wompi');
+                    alert_toast('Error al cargar el sistema de pagos. Por favor recarga la página.', 'error');
+                };
+                document.head.appendChild(script);
+            } else if (callback) {
+                // Si el script ya está cargando, esperar a que termine
+                const checkWompi = setInterval(() => {
+                    if (typeof WompiCheckout !== 'undefined') {
+                        clearInterval(checkWompi);
+                        callback();
+                    }
+                }, 100);
+            }
+        }
+
         // Función para inicializar el widget de Wompi
         function initWompiWidget() {
-            const reference = $('#reference').val();
-            const amountInCents = Math.round(totalAmount * 100); // Convertir a centavos para Wompi
+            console.log('Inicializando botón de pago...');
             
             // Configurar el botón de pago
-            $('#wompi-pay-button').on('click', function() {
+            $('#wompi-pay-button').off('click').on('click', async function(e) {
+                e.preventDefault();
+                console.log('Botón de pago clickeado');
+                
                 // Validar dirección
                 if ($('#delivery_address').val().trim() === '') {
                     alert_toast('Por favor ingresa una dirección de entrega', 'error');
                     return false;
                 }
                 
-                // Iniciar el proceso de pago
-                processOrder(true);
+                // Mostrar mensaje de carga
+                start_loader();
+                
+                try {
+                    // Verificar si Wompi está disponible
+                    if (typeof WompiCheckout === 'undefined') {
+                        console.log('WompiCheckout no está disponible, cargando script...');
+                        // Cargar el script de Wompi
+                        await loadWompiScript();
+                        console.log('Script de Wompi cargado, procesando pedido...');
+                    } else {
+                        console.log('WompiCheckout ya está disponible, procesando pedido...');
+                    }
+                    
+                    // Procesar el pedido
+                    processOrder(true);
+                    
+                } catch (error) {
+                    console.error('Error al cargar Wompi:', error);
+                    alert_toast('Error al cargar el sistema de pagos. Por favor inténtalo de nuevo.', 'error');
+                    end_loader();
+                }
             });
             
-            // Configuración del widget de Wompi
-            window.wompiCheckout = null;
-            
-            // Cargar el script de Wompi
-            const wompiScript = document.createElement('script');
-            wompiScript.src = 'https://checkout.wompi.co/widget.js';
-            wompiScript.onload = function() {
-                window.wompiCheckout = new WompiCheckout({
-                    public_key: 'pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH',
-                    currency: 'COP',
-                    amount_in_cents: amountInCents,
-                    reference: reference,
-                    redirect_url: `${_base_url_}?p=my_orders`,
-                    customer_information: {
-                        email: '<?= $_settings->userdata('email') ?>',
-                        full_name: '<?= $_settings->userdata('firstname').' '.$_settings->userdata('lastname') ?>',
-                        phone_number: '<?= $_settings->userdata('contact') ?>'
-                    }
+            // Precargar el script de Wompi en segundo plano
+            loadWompiScript()
+                .then(() => {
+                    console.log('Wompi está listo para usarse');
+                    window.wompiReady = true;
+                })
+                .catch(error => {
+                    console.error('Error al precargar Wompi:', error);
                 });
-            };
-            document.head.appendChild(wompiScript);
         }
         
         // Inicializar el widget cuando el documento esté listo
@@ -155,6 +237,76 @@ include_once('inc/header.php');
             return false;
         });
         
+        // Función para abrir el widget de Wompi
+        function openWompiCheckout(resp) {
+            console.log('Abriendo Wompi con referencia:', resp.reference);
+            console.log('Datos de la respuesta:', JSON.stringify(resp, null, 2));
+            
+            // Verificar si el script de Wompi está cargado
+            if (typeof WompiCheckout === 'undefined') {
+                console.error('WompiCheckout no está definido');
+                alert_toast('Error al cargar el sistema de pagos. Por favor recarga la página.', 'error');
+                end_loader();
+                return;
+            }
+            
+            try {
+                // Verificar que los datos requeridos estén presentes
+                if (!resp.amount || !resp.reference) {
+                    throw new Error('Faltan datos requeridos para abrir Wompi');
+                }
+                
+                // Configuración del widget
+                const wompiConfig = {
+                    public_key: resp.public_key || 'pub_test_7uCFxW8WrWZnhyaXf3sH9y99nXis5KxI',
+                    currency: resp.currency || 'COP',
+                    amount_in_cents: parseInt(resp.amount),
+                    reference: resp.reference.toString(),
+                    redirect_url: resp.redirect_url || (_base_url_ + '?p=my_orders'),
+                    customer_information: {
+                        email: '<?= $_settings->userdata('email') ?>',
+                        full_name: '<?= $_settings->userdata('firstname').' '.$_settings->userdata('lastname') ?>',
+                        phone_number: '<?= $_settings->userdata('contact') ?>'
+                    },
+                    onOpen: function() {
+                        console.log('Widget de Wompi abierto exitosamente');
+                    },
+                    onClose: function() {
+                        console.log('Widget de Wompi cerrado');
+                    },
+                    onError: function(error) {
+                        console.error('Error en el widget de Wompi:', error);
+                        alert_toast('Error al abrir el sistema de pagos: ' + (error.message || 'Error desconocido'), 'error');
+                        end_loader();
+                    }
+                };
+                
+                console.log('Configuración de Wompi:', JSON.stringify(wompiConfig, null, 2));
+                
+                // Crear instancia del widget de Wompi
+                const wompiCheckout = new WompiCheckout(wompiConfig);
+                
+                console.log('Widget de Wompi creado, abriendo...');
+                
+                // Abrir el checkout
+                wompiCheckout.open({
+                    amount_in_cents: parseInt(resp.amount),
+                    reference: resp.reference.toString()
+                });
+                
+                // Limpiar el carrito después de un tiempo
+                setTimeout(() => {
+                    localStorage.removeItem('cart');
+                }, 300000); // 5 minutos
+                
+            } catch (error) {
+                console.error('Error al abrir Wompi:', error);
+                alert_toast('Error al abrir el sistema de pagos: ' + error.message, 'error');
+            } finally {
+                end_loader();
+            }
+        }
+        
         // Función para procesar el pedido
         function processOrder(withWompi = false) {
             const formData = new FormData($('#place_order')[0]);
@@ -162,6 +314,8 @@ include_once('inc/header.php');
             // Agregar el carrito al formData
             const cart = JSON.parse(localStorage.getItem('cart') || '[]');
             formData.append('cart', JSON.stringify(cart));
+            
+            console.log('Procesando pedido con Wompi:', withWompi);
             
             // Mostrar loader
             start_loader();
@@ -176,7 +330,7 @@ include_once('inc/header.php');
                 method: 'POST',
                 dataType: 'json',
                 error: function(err) {
-                    console.error('Error:', err);
+                    console.error('Error en la petición:', err);
                     alert_toast('Ocurrió un error al procesar el pedido', 'error');
                     end_loader();
                 },
@@ -185,34 +339,15 @@ include_once('inc/header.php');
                     
                     if (resp.status === 'success') {
                         if (withWompi) {
-                            // Crear el widget de Wompi si no existe
-                            if (!window.wompiCheckout) {
-                                window.wompiCheckout = new WompiCheckout({
-                                    public_key: resp.public_key || 'pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH',
-                                    currency: resp.currency || 'COP',
-                                    amount_in_cents: resp.amount,
-                                    reference: resp.reference,
-                                    redirect_url: resp.redirect_url || (_base_url_ + '?p=my_orders'),
-                                    customer_information: {
-                                        email: '<?= $_settings->userdata('email') ?>',
-                                        full_name: '<?= $_settings->userdata('firstname').' '.$_settings->userdata('lastname') ?>',
-                                        phone_number: '<?= $_settings->userdata('contact') ?>'
-                                    }
+                            // Intentar abrir Wompi directamente
+                            if (typeof WompiCheckout !== 'undefined') {
+                                openWompiCheckout(resp);
+                            } else {
+                                // Si Wompi no está cargado, cargarlo y luego abrirlo
+                                loadWompiScript(function() {
+                                    openWompiCheckout(resp);
                                 });
                             }
-                            
-                            // Abrir el checkout de Wompi
-                            window.wompiCheckout.open({
-                                amount_in_cents: resp.amount,
-                                reference: resp.reference
-                            });
-                            
-                            // Limpiar el carrito después de un tiempo (por si el usuario no completa el pago)
-                            setTimeout(() => {
-                                localStorage.removeItem('cart');
-                            }, 300000); // 5 minutos
-                            
-                            end_loader();
                         } else {
                             // Para otros métodos de pago
                             localStorage.removeItem('cart');

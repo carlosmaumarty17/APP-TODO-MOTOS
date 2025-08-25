@@ -5,9 +5,9 @@
 <?php endif;?>
 <div class="card card-outline card-primary">
 	<div class="card-header">
-		<h3 class="card-title">List of Services</h3>
+		<h3 class="card-title">Lista de Servicios</h3>
 		<div class="card-tools">
-			<a href="?page=maintenance/manage_service" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+			<a href="?page=maintenance/manage_service" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Crear Nuevo</a>
 		</div>
 	</div>
 	<div class="card-body">
@@ -25,11 +25,11 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Date Created</th>
-						<th>Service Name</th>
-						<th>Description</th>
-						<th>Status</th>
-						<th>Action</th>
+						<th>Fecha de Creación</th>
+						<th>Nombre del Servicio</th>
+						<th>Descripción</th>
+						<th>Estado</th>
+						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -48,20 +48,20 @@
                             </td>
 							<td class="text-center">
                                 <?php if($row['status'] == 1): ?>
-                                    <span class="badge badge-success">Active</span>
+                                    <span class="badge badge-success">Activo</span>
                                 <?php else: ?>
-                                    <span class="badge badge-danger">Inactive</span>
+                                    <span class="badge badge-danger">Inactivo</span>
                                 <?php endif; ?>
                             </td>
 							<td align="center">
 								 <button type="button" class="btn btn-flat btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
-				                  		Action
-				                    <span class="sr-only">Toggle Dropdown</span>
-				                  </button>
-				                  <div class="dropdown-menu" role="menu">
-				                    <a class="dropdown-item" href="?page=maintenance/manage_service&id=<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
-				                    <div class="dropdown-divider"></div>
-				                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
+						  		Acciones
+						    <span class="sr-only">Menú desplegable</span>
+						  </button>
+						  <div class="dropdown-menu" role="menu">
+						    <a class="dropdown-item" href="?page=maintenance/manage_service&id=<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Editar</a>
+						    <div class="dropdown-divider"></div>
+						    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Eliminar</a>
 				                  </div>
 							</td>
 						</tr>
@@ -75,10 +75,15 @@
 <script>
 	$(document).ready(function(){
 		$('.delete_data').click(function(){
-			_conf("Are you sure to delete this service permanently?","delete_service",[$(this).attr('data-id')])
+			_conf("¿Está seguro de eliminar este servicio?","delete_service",[$(this).attr('data-id')])
 		})
-		$('.table').dataTable();
+		$('.table').dataTable({
+			"language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json"
+            }
+		});
 	})
+
 	function delete_service($id){
 		start_loader();
 		$.ajax({
@@ -86,19 +91,23 @@
 			method:"POST",
 			data:{id: $id},
 			dataType:"json",
-			error:err=>{
-				console.log(err)
-				alert_toast("An error occured.",'error');
+			error:function(xhr, status, error) {
+				console.error(xhr.responseText);
+				alert_toast("Ocurrió un error al procesar la solicitud.", 'error');
 				end_loader();
 			},
 			success:function(resp){
-				if(typeof resp== 'object' && resp.status == 'success'){
-					location.reload();
+				if(resp && resp.status == 'success'){
+					alert_toast("Servicio eliminado correctamente.", 'success');
+					setTimeout(function(){
+						location.reload();
+					}, 1500);
 				}else{
-					alert_toast("An error occured.",'error');
+					var errorMsg = resp && resp.error ? resp.error : 'Ocurrió un error inesperado.';
+					alert_toast(errorMsg, 'error');
 					end_loader();
 				}
 			}
-		})
+		});
 	}
 </script>

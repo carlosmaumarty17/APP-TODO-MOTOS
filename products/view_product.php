@@ -11,11 +11,11 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
         $out = $out > 0 ? $out : 0;
         $available = $stocks - $out;
     }else{
-    echo "<script> alert('Unkown Product ID!'); location.replace('./?page=products');</script>";
+    echo "<script> alert('¡ID de producto desconocido!'); location.replace('./?page=products');</script>";
 
     }
 }else{
-    echo "<script> alert('Product ID is required!'); location.replace('./?page=products');</script>";
+    echo "<script> alert('¡Se requiere un ID de producto!'); location.replace('./?page=products');</script>";
 }
 ?>
 <style>
@@ -30,9 +30,9 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     <div class="container">
         <div class="card card-outline rounded-0 card-primary shadow">
             <div class="card-header">
-                <h4 class="card-title">Product Details</h4>
+                <h4 class="card-title">Detalles del Producto</h4>
                 <div class="card-tools">
-                    <a class="btn btn-default border btn-sm btn-flat" href="javascript:void(0)" id="add_to_cart"><i class="fa fa-cart-plus"></i> Add to Cart</a>
+                    <a class="btn btn-default border btn-sm btn-flat" href="javascript:void(0)" id="add_to_cart"><i class="fa fa-cart-plus"></i> Agregar al Carrito</a>
                 </div>
             </div>
             <div class="card-body">
@@ -44,51 +44,51 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <small class="mx-2 text-muted">Brand Name</small>
+                            <small class="mx-2 text-muted">Marca</small>
                             <div class="pl-4"><?= isset($brand) ? $brand : '' ?></div>
                         </div>
                         <div class="col-md-6">
-                            <small class="mx-2 text-muted">Category</small>
+                            <small class="mx-2 text-muted">Categoría</small>
                             <div class="pl-4"><?= isset($category) ? $category : '' ?></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <small class="mx-2 text-muted">Compatible Models</small>
+                            <small class="mx-2 text-muted">Modelos Compatibles</small>
                             <div class="pl-4"><?= isset($models) ? $models : '' ?></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            <small class="mx-2 text-muted">Name</small>
+                            <small class="mx-2 text-muted">Nombre</small>
                             <div class="pl-4"><?= isset($name) ? $name : '' ?></div>
                         </div>
                         <div class="col-md-6">
-                            <small class="mx-2 text-muted">Price</small>
+                            <small class="mx-2 text-muted">Precio</small>
                             <div class="pl-4"><?= isset($price) ? number_format($price,2) : '' ?></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <small class="mx-2 text-muted">Available Stocks</small>
+                            <small class="mx-2 text-muted">Existencias Disponibles</small>
                             <div class="pl-4"><?= isset($available) ? number_format($available) : '' ?></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <small class="mx-2 text-muted">Description</small>
+                            <small class="mx-2 text-muted">Descripción</small>
                             <div class="pl-4"><?= isset($description) ? html_entity_decode($description) : '' ?></div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <small class="mx-2 text-muted">Status</small>
+                            <small class="mx-2 text-muted">Estado</small>
                             <div class="pl-4">
                                 <?php if(isset($status)): ?>
                                 <?php if($status == 1): ?>
-                                    <span class="badge badge-success px-3 rounded-pill">Active</span>
+                                    <span class="badge badge-success px-3 rounded-pill">Activo</span>
                                 <?php else: ?>
-                                    <span class="badge badge-danger px-3 rounded-pill">Inactive</span>
+                                    <span class="badge badge-danger px-3 rounded-pill">Inactivo</span>
                                 <?php endif; ?>
                                 <?php endif; ?>
                             </div>
@@ -112,24 +112,24 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                         dataType:'json',
                         error:err=>{
                             console.error(err)
-                            alert_toast("An error occured","error")
+                            alert_toast("Ocurrió un error","error")
                             end_loader();
                         },
                         success:function(resp){
                             if(resp.status =='success'){
                                 update_cart_count(resp.cart_count);
-                                alert_toast(" Product has been added to cart.",'success')
+                                alert_toast("El producto ha sido agregado al carrito.",'success')
                             }else if(!!resp.msg){
                                 alert_toast(resp.msg,'error')
                             }else{
-                                alert_toast("An error occured","error")
+                                alert_toast("Ocurrió un error","error")
                             }
                             end_loader();
                         }
                     })
                 }
             }else{
-                alert_toast(" Please Login First!",'warning')
+                alert_toast("¡Por favor inicie sesión primero!",'warning')
             }
         })
     })

@@ -7,18 +7,18 @@ $category_filter = isset($_GET['category_filter']) ? explode(",",$_GET['category
     <div class="container">
         <div class="row">
             <div class="col-md-4">
-                <h3 class="text-muted">Filters</h3>
+                <h3 class="text-muted">Filtros</h3>
                 <hr>
                 <div class="card card-outline shadow card-primary rounded-0">
                     <div class="card-header">
-                        <h3 class="card-title"><b>Brands</b></h3>
+                        <h3 class="card-title"><b>Marcas</b></h3>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-action">
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="brand_all" value="all" <?= !is_array($brand_filter) && $brand_filter =='all' ? 'checked' : '' ?>>
-                                    <label for="brand_all" class="custom-control-label w-100">All</label>
+                                    <label for="brand_all" class="custom-control-label w-100">Todas</label>
                                 </div>
                             </li>
                             <?php 
@@ -37,14 +37,14 @@ $category_filter = isset($_GET['category_filter']) ? explode(",",$_GET['category
                 </div>
                 <div class="card card-outline shadow card-primary rounded-0">
                     <div class="card-header">
-                        <h3 class="card-title"><b>Categories</b></h3>
+                        <h3 class="card-title"><b>Categorías</b></h3>
                     </div>
                     <div class="card-body">
                         <ul class="list-group">
                             <li class="list-group-item list-group-item-action">
                                 <div class="custom-control custom-checkbox">
                                     <input class="custom-control-input" type="checkbox" id="category_all" value="all" <?= !is_array($category_filter) && $category_filter =='all' ? 'checked' : '' ?>>
-                                    <label for="category_all" class="custom-control-label w-100">All</label>
+                                    <label for="category_all" class="custom-control-label w-100">Todas</label>
                                 </div>
                             </li>
                             <?php 
@@ -67,7 +67,7 @@ $category_filter = isset($_GET['category_filter']) ? explode(",",$_GET['category
                     <div class="col-md-12">
                         <form action="" id="search_prod">
                             <div class="input-group">
-                                <input type="search" name="search" value="<?= $search ?>" class="form-control" placeholder="Serach Product...">
+                                <input type="search" name="search" value="<?= $search ?>" class="form-control" placeholder="Buscar producto...">
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary"><i class="fa fa-search"></i></button>
                                 </div>
@@ -93,7 +93,7 @@ $category_filter = isset($_GET['category_filter']) ? explode(",",$_GET['category
                         <a class="col px-1 py-2 text-decoration-none text-dark product-item" href ="./?p=products/view_product&id=<?= $row['id'] ?>">
                             <div class="card rounded-0 shadow">
                                 <div class="product-img-holder overflow-hidden position-relative">
-                                    <img src="<?= validate_image($row['image_path']) ?>" alt="Product Image" class="img-top"/>
+                                    <img src="<?= validate_image($row['image_path']) ?>" alt="Imagen del producto" class="img-top"/>
                                     <span class="position-absolute price-tag rounded-pill bg-gradient-primary text-light px-3">
                                         <i class="fa fa-tags"></i> <b><?= number_format($row['price'],2) ?></b>
                                     </span>
@@ -110,7 +110,7 @@ $category_filter = isset($_GET['category_filter']) ? explode(",",$_GET['category
                 </div>
                 <?php if($products->num_rows <= 0): ?>
                     <div class="w-100 d-flex justify-content-center align-items-center" style="min-height:10em">
-                    <center><em class="text-muted">No data.</em></center>
+                    <center><em class="text-muted">No hay productos disponibles.</em></center>
                     </div>
                 <?php endif; ?>
             </div>

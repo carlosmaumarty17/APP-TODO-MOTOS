@@ -19,43 +19,43 @@ $services  = $conn->query("SELECT * FROM service_list where id in ({$service_id}
     <div class="row">
         <div class="col-sm-6">
             <dl>
-                <dt><b>Vehicle Type</b></dt>
+                <dt><b>Tipo de Vehículo</b></dt>
                 <dd class="pl-2"><?php echo $category ?></dd>
-                <dt><b>Client Name</b></dt>
+                <dt><b>Nombre del Cliente</b></dt>
                 <dd class="pl-2"><?php echo $fullname ?></dd>
-                <dt><b>Owner Contact</b></dt>
+                <dt><b>Contacto del Propietario</b></dt>
                 <dd class="pl-2"><?php echo $contact ?></dd>
-                <dt><b>Owner Email</b></dt>
+                <dt><b>Correo del Propietario</b></dt>
                 <dd class="pl-2"><?php echo $email ?></dd>
-                <dt><b>Owner Address</b></dt>
+                <dt><b>Dirección del Propietario</b></dt>
                 <dd class="pl-2"><?php echo $address ?></dd>
-                <dt><b>Request Type</b></dt>
+                <dt><b>Tipo de Solicitud</b></dt>
                 <dd class="pl-2"><?php echo $service_type ?></dd>
-                <dt><b>Status</b></dt>
+                <dt><b>Estado</b></dt>
                 <dd class="pl-2">
                     <?php if($status == 1): ?>
-                        <span class="badge badge-primary">Confirmed</span>
+                        <span class="badge badge-primary">Confirmado</span>
                     <?php elseif($status == 2): ?>
-                        <span class="badge badge-warning">On-progress</span>
+                        <span class="badge badge-warning">En Progreso</span>
                     <?php elseif($status == 3): ?>
-                        <span class="badge badge-success">Done</span>
+                        <span class="badge badge-success">Completado</span>
                     <?php elseif($status == 4): ?>
-                        <span class="badge badge-danger">Cancelled</span>
+                        <span class="badge badge-danger">Cancelado</span>
                     <?php else: ?>
-                        <span class="badge badge-secondary">Pending</span>
+                        <span class="badge badge-secondary">Pendiente</span>
                     <?php endif; ?>
                 </dd>
             </dl>
         </div>
         <div class="col-sm-6">
             <dl>
-                <dt><b>Vehicle Name</b></dt>
+                <dt><b>Nombre del Vehículo</b></dt>
                 <dd class="pl-2"><?php echo $vehicle_name ?></dd>
-                <dt><b>Vehicle Registration Number</b></dt>
+                <dt><b>Número de Matrícula</b></dt>
                 <dd class="pl-2"><?php echo $vehicle_registration_number ?></dd>
-                <dt><b>Vehicle Model</b></dt>
+                <dt><b>Modelo del Vehículo</b></dt>
                 <dd class="pl-2"><?php echo $vehicle_model ?></dd>
-                <dt><b>Service/s:</b></dt>
+                <dt><b>Servicio/s:</b></dt>
                 <dd class="pl-2">
                     <ul>
                         <?php 
@@ -70,7 +70,7 @@ $services  = $conn->query("SELECT * FROM service_list where id in ({$service_id}
     </div>
     <div class="w-100 d-flex justify-content-end mx-2">
         <div class="col-auto">
-            <button class="btn btn-light btn-sm rounded-0" type="button" data-dismiss="modal">Close</button>
+            <button class="btn btn-light btn-sm rounded-0" type="button" data-dismiss="modal">Cerrar</button>
         </div>
     </div>
 </div>

@@ -9,24 +9,24 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 ?>
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h5 class="card-title">Vehicle Service Requests Report</h5>
+        <h5 class="card-title">Reporte de Órdenes de Servicio</h5>
     </div>
     <div class="card-body">
         <form id="filter-form">
             <div class="row align-items-end">
                 <div class="form-group col-md-3">
-                    <label for="date_start">Date Start</label>
+                    <label for="date_start">Fecha de Inicio</label>
                     <input type="date" class="form-control form-control-sm" name="date_start" value="<?php echo date("Y-m-d",strtotime($date_start)) ?>">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="date_start">Date End</label>
+                    <label for="date_start">Fecha de Fin</label>
                     <input type="date" class="form-control form-control-sm" name="date_end" value="<?php echo date("Y-m-d",strtotime($date_end)) ?>">
                 </div>
                 <div class="form-group col-md-1">
-                    <button class="btn btn-flat btn-block btn-primary btn-sm"><i class="fa fa-filter"></i> Filter</button>
+                    <button class="btn btn-flat btn-block btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
                 </div>
                 <div class="form-group col-md-1">
-                    <button class="btn btn-flat btn-block btn-success btn-sm" type="button" id="printBTN"><i class="fa fa-print"></i> Print</button>
+                    <button class="btn btn-flat btn-block btn-success btn-sm" type="button" id="printBTN"><i class="fa fa-print"></i> Imprimir</button>
                 </div>
             </div>
         </form>
@@ -34,8 +34,8 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
         <div id="printable">
             <div>
                 <h4 class="text-center m-0"><?php echo $_settings->info('name') ?></h4>
-                <h3 class="text-center m-0"><b>Order Report</b></h3>
-                <p class="text-center m-0">Date Between <?php echo $date_start ?> and <?php echo $date_end ?></p>
+                <h3 class="text-center m-0"><b>Reporte de Órdenes</b></h3>
+                <p class="text-center m-0">Fecha entre <?php echo $date_start ?> y <?php echo $date_end ?></p>
                 <hr>
             </div>
             <table class="table table-bordered">
@@ -50,11 +50,11 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Date Time</th>
-                        <th>Ref. Code</th>
-                        <th>Client Name</th>
-                        <th>Total Amount</th>
-                        <th>Status</th>
+                        <th>Fecha y Hora</th>
+                        <th>Código Ref.</th>
+                        <th>Cliente</th>
+                        <th>Monto Total</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,26 +73,24 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                         <td><?php echo $row['ref_code'] ?></td>
                         <td><?php echo $row['fullname'] ?></td>
                         <td class="text-right"><?= number_format($row['total_amount'],2) ?></td>
-                        <td class='text-center'>
-                            <?php if($row['status'] == 0): ?>
-                                <span class="badge badge-secondary px-3 rounded-pill">Pending</span>
-                            <?php elseif($row['status'] == 1): ?>
-                                <span class="badge badge-primary px-3 rounded-pill">Packed</span>
-                            <?php elseif($row['status'] == 2): ?>
-                                <span class="badge badge-success px-3 rounded-pill">For Delivery</span>
-                            <?php elseif($row['status'] == 3): ?>
-                                <span class="badge badge-warning px-3 rounded-pill">On the Way</span>
-                            <?php elseif($row['status'] == 4): ?>
-                                <span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Delivered</span>
-                            <?php else: ?>
-                                <span class="badge badge-danger px-3 rounded-pill">Cancelled</span>
-                            <?php endif; ?>
+                        <td class='text-center' id='status_<?php echo $row['id'] ?>'>
+                            <?php 
+                            $status_badge = [
+                                0 => '<span class="badge badge-secondary px-3 rounded-pill">Pendiente</span>',
+                                1 => '<span class="badge badge-primary px-3 rounded-pill">Empacado</span>',
+                                2 => '<span class="badge badge-success px-3 rounded-pill">Para Envío</span>',
+                                3 => '<span class="badge badge-warning px-3 rounded-pill">En Camino</span>',
+                                4 => '<span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Entregado</span>',
+                                5 => '<span class="badge badge-danger px-3 rounded-pill">Cancelado</span>'
+                            ];
+                            echo $status_badge[$row['status']] ?? '<span class="badge badge-secondary px-3 rounded-pill">Desconocido</span>';
+                            ?>
                         </td>
                     </tr>
                     <?php endwhile; ?>
                     <?php if($qry->num_rows <= 0): ?>
                     <tr>
-                        <td class="text-center" colspan="6">No Data...</td>
+                        <td class="text-center" colspan="6">No hay datos...</td>
                     </tr>
                     <?php endif; ?>
                 </tbody>
@@ -100,6 +98,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
         </div>
     </div>
 </div>
+
 <noscript>
     <style>
         .m-0{
@@ -113,7 +112,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
         }
         .table{
             border-collapse:collapse;
-            width: 100%
+            width: 100%;
         }
         .table tr,.table td,.table th{
             border:1px solid gray;
@@ -122,11 +121,74 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 </noscript>
 <script>
     $(function(){
-        $('#filter-form').submit(function(e){
+        // Función para actualizar los estados de los pedidos
+        function updateOrderStatus() {
+            // Obtener todos los IDs de pedidos en la tabla
+            let orderIds = [];
+            $('td[id^="status_"]').each(function() {
+                const id = $(this).attr('id').replace('status_', '');
+                orderIds.push(id);
+            });
+
+            if (orderIds.length === 0) return;
+
+            // Hacer una sola petición para actualizar todos los estados
+            $.ajax({
+                url: _base_url_ + 'classes/Master.php?f=get_orders_status',
+                method: 'POST',
+                data: { ids: orderIds },
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status === 'success' && response.data) {
+                        // Actualizar solo los estados que hayan cambiado
+                        response.data.forEach(function(order) {
+                            const statusBadge = [
+                                '<span class="badge badge-secondary px-3 rounded-pill">Pendiente</span>',
+                                '<span class="badge badge-primary px-3 rounded-pill">Empacado</span>',
+                                '<span class="badge badge-success px-3 rounded-pill">Para Envío</span>',
+                                '<span class="badge badge-warning px-3 rounded-pill">En Camino</span>',
+                                '<span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Entregado</span>',
+                                '<span class="badge badge-danger px-3 rounded-pill">Cancelado</span>'
+                            ];
+                            
+                            const statusCell = $('#status_' + order.id);
+                            const currentStatus = statusCell.html().trim();
+                            const newStatus = statusBadge[order.status] || '<span class="badge badge-secondary px-3 rounded-pill">Desconocido</span>';
+                            
+                            // Solo actualizar si el estado cambió
+                            if (currentStatus !== newStatus) {
+                                // Efecto de actualización suave
+                                statusCell.fadeOut(200, function() {
+                                    $(this).html(newStatus).fadeIn(200);
+                                });
+                            }
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al actualizar estados:', error);
+                }
+            });
+        }
+
+        // Actualizar estados cada 10 segundos
+        setInterval(updateOrderStatus, 10000);
+
+        // También actualizar cuando se hace clic en el botón de imprimir/actualizar
+        $('#printBTN').on('click', function() {
+            updateOrderStatus();
+        });
+
+        // Actualizar estados al cargar la página
+        updateOrderStatus();
+
+        // Manejar el filtro de fechas
+        $('#filter-form').submit(function(e) {
             e.preventDefault()
             location.href = "./?page=report/orders&date_start="+$('[name="date_start"]').val()+"&date_end="+$('[name="date_end"]').val()
         })
 
+        // Manejar la impresión
         $('#printBTN').click(function(){
             var rep = $('#printable').clone();
             var ns = $('noscript').clone().html();

@@ -9,24 +9,24 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
 ?>
 <div class="card card-primary card-outline">
     <div class="card-header">
-        <h5 class="card-title">Vehicle Service Requests Report</h5>
+        <h5 class="card-title">Reporte de Solicitudes de Servicio de Vehículos</h5>
     </div>
     <div class="card-body">
         <form id="filter-form">
             <div class="row align-items-end">
                 <div class="form-group col-md-3">
-                    <label for="date_start">Date Start</label>
+                    <label for="date_start">Fecha de Inicio</label>
                     <input type="date" class="form-control form-control-sm" name="date_start" value="<?php echo date("Y-m-d",strtotime($date_start)) ?>">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="date_start">Date End</label>
+                    <label for="date_start">Fecha de Fin</label>
                     <input type="date" class="form-control form-control-sm" name="date_end" value="<?php echo date("Y-m-d",strtotime($date_end)) ?>">
                 </div>
                 <div class="form-group col-md-1">
-                    <button class="btn btn-flat btn-block btn-primary btn-sm"><i class="fa fa-filter"></i> Filter</button>
+                    <button class="btn btn-flat btn-block btn-primary btn-sm"><i class="fa fa-filter"></i> Filtrar</button>
                 </div>
                 <div class="form-group col-md-1">
-                    <button class="btn btn-flat btn-block btn-success btn-sm" type="button" id="printBTN"><i class="fa fa-print"></i> Print</button>
+                    <button class="btn btn-flat btn-block btn-success btn-sm" type="button" id="printBTN"><i class="fa fa-print"></i> Imprimir</button>
                 </div>
             </div>
         </form>
@@ -34,8 +34,8 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
         <div id="printable">
             <div>
                 <h4 class="text-center m-0"><?php echo $_settings->info('name') ?></h4>
-                <h3 class="text-center m-0"><b>Service Requests Report</b></h3>
-                <p class="text-center m-0">Date Between <?php echo $date_start ?> and <?php echo $date_end ?></p>
+                <h3 class="text-center m-0"><b>Reporte de Solicitudes de Servicio</b></h3>
+                <p class="text-center m-0">Fecha entre <?php echo $date_start ?> y <?php echo $date_end ?></p>
                 <hr>
             </div>
             <table class="table table-bordered">
@@ -51,13 +51,13 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Date Time</th>
-                        <th>Owner Name</th>
-                        <th>Vehicle Name</th>
-                        <th>Vehicle Reg. No.</th>
-                        <th>Assigned To</th>
-                        <th>Service</th>
-                        <th>Status</th>
+                        <th>Fecha y Hora</th>
+                        <th>Nombre del Dueño</th>
+                        <th>Vehículo</th>
+                        <th>Placa</th>
+                        <th>Asignado a</th>
+                        <th>Servicio</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -88,15 +88,15 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                         <td><?php echo $srow['service'] ?></td>
                         <td class='text-center'>
                             <?php if($row['status'] == 1): ?>
-                                <span class="badge badge-primary rounded-pill px-3">Confirmed</span>
+                                <span class="badge badge-primary rounded-pill px-3">Confirmado</span>
                             <?php elseif($row['status'] == 2): ?>
-                                <span class="badge badge-warning rounded-pill px-3">On-progress</span>
+                                <span class="badge badge-warning rounded-pill px-3">En Progreso</span>
                             <?php elseif($row['status'] == 3): ?>
-                                <span class="badge badge-success rounded-pill px-3">Done</span>
+                                <span class="badge badge-success rounded-pill px-3">Completado</span>
                             <?php elseif($row['status'] == 4): ?>
-                                <span class="badge badge-danger rounded-pill px-3">Cancelled</span>
+                                <span class="badge badge-danger rounded-pill px-3">Cancelado</span>
                             <?php else: ?>
-                                <span class="badge badge-secondary rounded-pill px-3">Pending</span>
+                                <span class="badge badge-secondary rounded-pill px-3">Pendiente</span>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -104,7 +104,7 @@ $date_end = isset($_GET['date_end']) ? $_GET['date_end'] :  date("Y-m-d") ;
                     <?php endwhile; ?>
                     <?php if($qry->num_rows <= 0): ?>
                     <tr>
-                        <td class="text-center" colspan="6">No Data...</td>
+                        <td class="text-center" colspan="6">No hay datos...</td>
                     </tr>
                     <?php endif; ?>
                 </tbody>

@@ -4,7 +4,7 @@
         <div class="text-center text-white w-100">
             <h1 class="display-4 fw-bolder mx-5"><?php echo $_settings->info('name') ?></h1>
             <div class="col-auto mt-2">
-                <a class="btn btn-primary btn-lg rounded-0" href="./?p=products">Shop Now</a>
+                <a class="btn btn-primary btn-lg rounded-0" href="./?p=products">Comprar Ahora</a>
             </div>
         </div>
     </div>

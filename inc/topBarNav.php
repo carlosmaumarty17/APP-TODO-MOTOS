@@ -16,11 +16,11 @@
                 </form> -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'home'? "active" : '' ?>" aria-current="page" href="./">Home</a></li>
-                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'products'? "active" : '' ?>" href="./?p=products">Products</a></li>
-                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'services'? "active" : '' ?>" href="./?p=services">Services</a></li>
-                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'brands'? "active" : '' ?>" href="./?p=brands">Brands</a></li>
-                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'about'? "active" : '' ?>" href="./?p=about">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'home'? "active" : '' ?>" aria-current="page" href="./">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'products'? "active" : '' ?>" href="./?p=products">Productos</a></li>
+                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'services'? "active" : '' ?>" href="./?p=services">Servicios</a></li>
+                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'brands'? "active" : '' ?>" href="./?p=brands">Marcas</a></li>
+                        <li class="nav-item"><a class="nav-link <?= isset($page) && $page == 'about'? "active" : '' ?>" href="./?p=about">Nosotros</a></li>
                     </ul>
                     <div class="d-flex align-items-center">
                     </div>
@@ -33,24 +33,24 @@
                         $cart_count = $conn->query("SELECT SUM(quantity) from cart_list where client_id = '{$_settings->userdata('id')}'")->fetch_array()[0];
                         $cart_count = $cart_count > 0 ? number_format($cart_count) : 0;
                         ?>
-                        <a href="./?p=cart" class="nav-link"><span id="cart_count" class="badge badge-danger rounded-circle"><?= $cart_count ?></span> Cart</a>
+                        <a href="./?p=cart" class="nav-link"><span id="cart_count" class="badge badge-danger rounded-circle"><?= $cart_count ?></span> Carrito</a>
                       </div>
                       <div class="navbar-nav nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                          <i class="fa fa-user"></i> Howdy, <?= $_settings->userdata('email') ?>
+                          <i class="fa fa-user"></i> Hola, <?= $_settings->userdata('email') ?>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                          <a class="dropdown-item" href="./?p=my_orders">My Orders</a>
-                          <a class="dropdown-item" href="./?p=my_services">My Service Requests</a>
-                          <a class="dropdown-item" href="./?p=manage_account">Manage Account</a>
-                          <a class="dropdown-item" href="./classes/Login.php?f=logout_client">Logout</a>
+                          <a class="dropdown-item" href="./?p=my_orders">Mis Pedidos</a>
+                          <a class="dropdown-item" href="./?p=my_services">Mis Servicios</a>
+                          <a class="dropdown-item" href="./?p=manage_account">Mi Cuenta</a>
+                          <a class="dropdown-item" href="./classes/Login.php?f=logout_client">Cerrar Sesión</a>
                         </div>
                       </div>
                     </div>
                   <?php else: ?>
-                    <a href="./login.php" class="text-light text-decoration-none mx-2"><b>Login</b></a> | 
-                    <a href="./register.php" class="text-light text-decoration-none mx-2"><b>Register</b></a> | 
-                    <a href="./admin/login.php" class="text-light text-decoration-none mx-2"><b>Admin</b></a>
+                    <a href="./login.php" class="text-light text-decoration-none mx-2"><b>Iniciar Sesión</b></a> | 
+                    <a href="./register.php" class="text-light text-decoration-none mx-2"><b>Registrarse</b></a> | 
+                    <a href="./admin/login.php" class="text-light text-decoration-none mx-2"><b>Administrador</b></a>
                   <?php endif; ?>
                 </div>
             </div>

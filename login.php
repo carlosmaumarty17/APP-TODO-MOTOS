@@ -33,14 +33,14 @@
   <div class="clear-fix my-2"></div>
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="./" class="h1 text-decoration-none"><b>Login</b></a>
+      <a href="./" class="h1 text-decoration-none"><b>Iniciar Sesión</b></a>
     </div>
     <div class="card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <p class="login-box-msg">Inicia sesión para comenzar</p>
 
       <form id="clogin-frm" action="" method="post">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" autofocus placeholder="Email">
+          <input type="email" class="form-control" name="email" autofocus placeholder="Correo electrónico">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -48,7 +48,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" placeholder="Password">
+          <input type="password" class="form-control" name="password" placeholder="Contraseña">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -57,17 +57,17 @@
         </div>
         <div class="row align-items-center">
           <div class="col-8">
-            <a href="<?php echo base_url ?>">Back to Shop</a>
+            <a href="<?php echo base_url ?>">Volver a la tienda</a>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-sm btn-flat btn-block">Sign In</button>
+            <button type="submit" class="btn btn-primary btn-sm btn-flat btn-block">Iniciar Sesión</button>
           </div>
           <!-- /.col -->
         </div>
         <div class="row">
             <div class="col-12 text-center">
-             <a href="<?php echo base_url.'register.php' ?>">Create an Account</a>
+             <a href="<?php echo base_url.'register.php' ?>">Crear una cuenta</a>
             </div>
         </div>
       </form>

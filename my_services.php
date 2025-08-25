@@ -1,6 +1,6 @@
 <div class="content py-5 mt-3">
     <div class="container">
-        <h3><b>My Service Requests</b></h3>
+        <h3><b>Mis Solicitudes de Servicio</b></h3>
         <hr>
         <div class="card card-outline card-dark shadow rounded-0">
             <div class="card-body">
@@ -17,11 +17,11 @@
                         <thead>
                             <tr class="bg-gradient-dark text-light">
                                 <th class="text-center">#</th>
-                                <th class="text-center">Date Requested</th>
-                                <th class="text-center">Mechanic</th>
-                                <th class="text-center">Service Type</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center">Action</th>
+                                <th class="text-center">Fecha de Solicitud</th>
+                                <th class="text-center">Mecánico</th>
+                                <th class="text-center">Tipo de Servicio</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,19 +39,19 @@
                                     <td class=""><?= $row['service_type'] ?></td>
                                     <td class="text-center">
                                         <?php if($row['status'] == 1): ?>
-                                        <span class="badge badge-primary rounded-pill px-3">Confirmed</span>
+                                        <span class="badge badge-primary rounded-pill px-3">Confirmado</span>
                                         <?php elseif($row['status'] == 2): ?>
-                                            <span class="badge badge-warning rounded-pill px-3">On-progress</span>
+                                            <span class="badge badge-warning rounded-pill px-3">En Progreso</span>
                                         <?php elseif($row['status'] == 3): ?>
-                                            <span class="badge badge-success rounded-pill px-3">Done</span>
+                                            <span class="badge badge-success rounded-pill px-3">Completado</span>
                                         <?php elseif($row['status'] == 4): ?>
-                                            <span class="badge badge-danger rounded-pill px-3">Cancelled</span>
+                                            <span class="badge badge-danger rounded-pill px-3">Cancelado</span>
                                         <?php else: ?>
-                                            <span class="badge badge-secondary rounded-pill px-3">Pending</span>
+                                            <span class="badge badge-secondary rounded-pill px-3">Pendiente</span>
                                         <?php endif; ?>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-flat btn-sm btn-default border view_data" type="button" data-id="<?= $row['id'] ?>"><i class="fa fa-eye"></i> View</button>
+                                        <button class="btn btn-flat btn-sm btn-default border view_data" type="button" data-id="<?= $row['id'] ?>"><i class="fa fa-eye"></i> Ver</button>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>
@@ -65,7 +65,7 @@
 <script>
     $(function(){
         $('.view_data').click(function(){
-            uni_modal("Service Request Details","view_request.php?id="+$(this).attr('data-id'),"mid-large")
+            uni_modal("Detalles de la Solicitud de Servicio","view_request.php?id="+$(this).attr('data-id'),"mid-large")
         })
 
         $('.table th, .table td').addClass("align-middle px-2 py-1")

@@ -13,9 +13,9 @@
 </style>
 <div class="card card-outline card-primary">
 	<div class="card-header">
-		<h3 class="card-title">List of Brands</h3>
+		<h3 class="card-title">Lista de Marcas</h3>
 		<div class="card-tools">
-			<a href="javascript:void(0)" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+			<a href="javascript:void(0)" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Crear Nueva</a>
 		</div>
 	</div>
 	<div class="card-body">
@@ -33,11 +33,11 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Date Created</th>
+						<th>Fecha de Creación</th>
 						<th>Logo</th>
-						<th>Brand</th>
-						<th>Status</th>
-						<th>Action</th>
+						<th>Marca</th>
+						<th>Estado</th>
+						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,25 +50,25 @@
 							<td class="text-center"><?php echo $i++; ?></td>
 							<td><?php echo date("Y-m-d H:i",strtotime($row['date_created'])) ?></td>
                             <td class="text-center">
-                                <img src="<?= validate_image($row['image_path']) ?>" alt="Brand Logo - <?= $row['name'] ?>" class="img-logo img-thumbnail">
+                                <img src="<?= validate_image($row['image_path']) ?>" alt="Logo de la Marca - <?= $row['name'] ?>" class="img-logo img-thumbnail">
                             </td>
 							<td><?php echo $row['name'] ?></td>
 							<td class="text-center">
                                 <?php if($row['status'] == 1): ?>
-                                    <span class="badge badge-success mx-3 rounded-pill">Active</span>
+                                    <span class="badge badge-success mx-3 rounded-pill">Activo</span>
                                 <?php else: ?>
-                                    <span class="badge badge-danger mx-3 rounded-pill">Inactive</span>
+                                    <span class="badge badge-danger mx-3 rounded-pill">Inactivo</span>
                                 <?php endif; ?>
                             </td>
 							<td align="center">
 								 <button type="button" class="btn btn-flat btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
-				                  		Action
-				                    <span class="sr-only">Toggle Dropdown</span>
+				                  		Acciones
+				                    <span class="sr-only">Menú desplegable</span>
 				                  </button>
 				                  <div class="dropdown-menu" role="menu">
-				                    <a class="dropdown-item edit_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
+				                    <a class="dropdown-item edit_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Editar</a>
 				                    <div class="dropdown-divider"></div>
-				                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
+				                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Eliminar</a>
 				                  </div>
 							</td>
 						</tr>
@@ -82,13 +82,13 @@
 <script>
 	$(document).ready(function(){
 		$('.delete_data').click(function(){
-			_conf("Are you sure to delete this brand permanently?","delete_brand",[$(this).attr('data-id')])
+			_conf("¿Estás seguro de eliminar esta marca permanentemente?","delete_brand",[$(this).attr('data-id')])
 		})
         $('#create_new').click(function(){
-            uni_modal("Add New Brand","maintenance/manage_brand.php","mid-large")
+            uni_modal("Agregar Nueva Marca","maintenance/manage_brand.php","mid-large")
         })
         $('.edit_data').click(function(){
-            uni_modal("Add New Brand","maintenance/manage_brand.php?id="+$(this).attr('data-id'),"mid-large")
+            uni_modal("Editar Marca","maintenance/manage_brand.php?id="+$(this).attr('data-id'),"mid-large")
         })
         $('.table th, .table td').addClass("align-middle px-2 py-1")
 		$('.table').dataTable();
@@ -102,14 +102,14 @@
 			dataType:"json",
 			error:err=>{
 				console.log(err)
-				alert_toast("An error occured.",'error');
+				alert_toast("Ocurrió un error.",'error');
 				end_loader();
 			},
 			success:function(resp){
 				if(typeof resp== 'object' && resp.status == 'success'){
 					location.reload();
 				}else{
-					alert_toast("An error occured.",'error');
+					alert_toast("Ocurrió un error.",'error');
 					end_loader();
 				}
 			}

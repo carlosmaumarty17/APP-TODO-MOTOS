@@ -24,31 +24,31 @@ if(isset($_GET['id'])){
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6">
-            <label for="" class="text-muted">Reference Code</label>
+            <label for="" class="text-muted">Código de Referencia</label>
             <div class="ml-3"><b><?= isset($ref_code) ? $ref_code : "N/A" ?></b></div>
         </div>
         <div class="col-md-6">
-            <label for="" class="text-muted">Date Ordered</label>
+            <label for="" class="text-muted">Fecha del Pedido</label>
             <div class="ml-3"><b><?= isset($date_created) ? date("M d, Y h:i A", strtotime($date_created)) : "N/A" ?></b></div>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            <label for="" class="text-muted">Status</label>
+            <label for="" class="text-muted">Estado</label>
             <div class="ml-3">
                 <?php if(isset($status)): ?>
                     <?php if($status == 0): ?>
-                        <span class="badge badge-secondary px-3 rounded-pill">Pending</span>
+                        <span class="badge badge-secondary px-3 rounded-pill">Pendiente</span>
                     <?php elseif($status == 1): ?>
-                        <span class="badge badge-primary px-3 rounded-pill">Packed</span>
+                        <span class="badge badge-primary px-3 rounded-pill">Empacado</span>
                     <?php elseif($status == 2): ?>
-                        <span class="badge badge-success px-3 rounded-pill">For Delivery</span>
+                        <span class="badge badge-success px-3 rounded-pill">Para Envío</span>
                     <?php elseif($status == 3): ?>
-                        <span class="badge badge-warning px-3 rounded-pill">On the Way</span>
+                        <span class="badge badge-warning px-3 rounded-pill">En Camino</span>
                     <?php elseif($status == 4): ?>
-                        <span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Delivered</span>
+                        <span class="badge badge-default bg-gradient-teal px-3 rounded-pill">Entregado</span>
                     <?php else: ?>
-                        <span class="badge badge-danger px-3 rounded-pill">Cancelled</span>
+                        <span class="badge badge-danger px-3 rounded-pill">Cancelado</span>
                     <?php endif; ?>
                 <?php else: ?>
                     N/A
@@ -97,7 +97,7 @@ if(isset($_GET['id'])){
                 <?php if(isset($order_item) && $order_item->num_rows <= 0): ?>
                 <div class="d-flex align-items-center w-100 border justify-content-center">
                     <div class="col-12 flex-grow-1 flex-shrink-1 px-1 py-1">
-                           <small class="text-muted">No Data</small>
+                           <small class="text-muted">No hay datos</small>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -116,15 +116,15 @@ if(isset($_GET['id'])){
     <div class="row">
         <div class="col-12 text-right">
             <?php if(isset($status)  && $status == 0): ?>
-            <button class="btn btn-danger btn-flat btn-sm" id="btn-cancel" type="button">Cancel Order</button>
+            <button class="btn btn-danger btn-flat btn-sm" id="btn-cancel" type="button">Cancelar Pedido</button>
             <?php endif; ?>
-            <button class="btn btn-dark btn-flat btn-sm" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
+            <button class="btn btn-dark btn-flat btn-sm" type="button" data-dismiss="modal"><i class="fa fa-times"></i> Cerrar</button>
         </div>
     </div>
 </div>
 <script>
     $('#btn-cancel').click(function(){
-        _conf("Are you sure to cancel this order?","cancel_order",[])
+        _conf("¿Está seguro de cancelar este pedido?","cancel_order",[])
     })
     function cancel_order(){
         start_loader();
@@ -135,7 +135,7 @@ if(isset($_GET['id'])){
             dataType:'json',
             error:err=>{
                 console.error(err)
-                alert_toast('An error occurred.','error')
+                alert_toast('Ocurrió un error.','error')
                 end_loader()
             },
             success:function(resp){
@@ -144,7 +144,7 @@ if(isset($_GET['id'])){
                 }else if(!!resp.msg){
                     alert_toast(resp.msg,'error')
                 }else{
-                    alert_toast('An error occurred.','error')
+                    alert_toast('Ocurrió un error.','error')
                 }
                 end_loader();
             }

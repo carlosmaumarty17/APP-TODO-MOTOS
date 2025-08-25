@@ -24,10 +24,10 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <div class="content py-3">
     <div class="card card-outline rounded-0 card-primary shadow">
         <div class="card-header">
-            <h4 class="card-title">Product Stock List</h4>
+            <h4 class="card-title">Lista de Inventario del Producto</h4>
             <div class="card-tools">
-                <a href="javascript:void(0)" id="add_new" class="btn btn-flat btn-sm btn-primary"><span class="fas fa-plus"></span>  Add New Stock</a>
-                <a class="btn btn-default border btn-sm btn-flat" href="./?page=inventory"><i class="fa fa-angle-left"></i> Back</a>
+                <a href="javascript:void(0)" id="add_new" class="btn btn-flat btn-sm btn-primary"><span class="fas fa-plus"></span>  Agregar Nuevo Stock</a>
+                <a class="btn btn-default border btn-sm btn-flat" href="./?page=inventory"><i class="fa fa-angle-left"></i> Volver</a>
             </div>
         </div>
         <div class="card-body">
@@ -41,39 +41,39 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <small class="mx-2 text-muted">Brand Name</small>
+                                <small class="mx-2 text-muted">Marca</small>
                                 <div class="pl-4"><?= isset($brand) ? $brand : '' ?></div>
                             </div>
                             <div class="col-md-6">
-                                <small class="mx-2 text-muted">Category</small>
+                                <small class="mx-2 text-muted">Categoría</small>
                                 <div class="pl-4"><?= isset($category) ? $category : '' ?></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <small class="mx-2 text-muted">Compatible Models</small>
+                                <small class="mx-2 text-muted">Modelos Compatibles</small>
                                 <div class="pl-4"><?= isset($models) ? $models : '' ?></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <small class="mx-2 text-muted">Name</small>
+                                <small class="mx-2 text-muted">Nombre</small>
                                 <div class="pl-4"><?= isset($name) ? $name : '' ?></div>
                             </div>
                             <div class="col-md-6">
-                                <small class="mx-2 text-muted">Price</small>
+                                <small class="mx-2 text-muted">Precio</small>
                                 <div class="pl-4"><?= isset($price) ? number_format($price,2) : '' ?></div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <small class="mx-2 text-muted">Available Quantity</small>
+                                <small class="mx-2 text-muted">Cantidad Disponible</small>
                                 <div class="pl-4"><?= isset($available) ? number_format($available) : '0' ?></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <h3>Stock-in History</h3>
+                        <h3>Historial de Ingresos</h3>
                         <table class="table table-bordered table-stripped">
                             <colgroup>
                                 <col width="50%">
@@ -82,8 +82,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             </colgroup>
                             <thead>
                                 <tr class="bg-light text-light">
-                                    <th class="py-1 text-center">Date Added</th>
-                                    <th class="py-1 text-center">Quantity</th>
+                                    <th class="py-1 text-center">Fecha de Ingreso</th>
+                                    <th class="py-1 text-center">Cantidad</th>
                                     <th class="py-1 text-center"></th>
                                 </tr>
                             </thead>
@@ -97,12 +97,12 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                                         <td class="px-2 py-1 text-right align-middle"><?= number_format($row['quantity']) ?></td>
                                         <td class="px-2 py-1 align-middle">
                                             <button type="button" class="btn btn-flat btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                            Action
+                                            Acciones
                                                 <span class="sr-only">Toggle Dropdown</span>
                                             </button>
                                             <div class="dropdown-menu" role="menu">
-                                                <a class="dropdown-item edit_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-edit text-dark"></span> Edit</a>
-                                                <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
+                                                <a class="dropdown-item edit_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-edit text-dark"></span> Editar</a>
+                                                <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Eliminar</a>
                                             </div>
                                         </td>
                                     </tr>
@@ -119,13 +119,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <script>
     $(document).ready(function(){
         $('#add_new').click(function(){
-			uni_modal("Add New Stock","inventory/manage_stock.php?pid=<?= isset($id) ? $id : "" ?>")
+				uni_modal("Agregar Nuevo Stock","inventory/manage_stock.php?pid=<?= isset($id) ? $id : "" ?>")
 		})
         $('.edit_data').click(function(){
-			uni_modal("Edit Stock","inventory/manage_stock.php?id="+$(this).attr('data-id'))
+				uni_modal("Editar Stock","inventory/manage_stock.php?id="+$(this).attr('data-id'))
 		})
 		$('.delete_data').click(function(){
-			_conf("Are you sure to delete this stock entry product permanently?","delete_stock",[$(this).attr('data-id')])
+			_conf("¿Está seguro de eliminar permanentemente esta entrada de inventario?","delete_stock",[$(this).attr('data-id')])
 		})
     })
     function delete_stock($id){
@@ -144,7 +144,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 				if(typeof resp== 'object' && resp.status == 'success'){
 					location.reload();
 				}else{
-					alert_toast("An error occured.",'error');
+					alert_toast("Ocurrió un error.",'error');
 					end_loader();
 				}
 			}

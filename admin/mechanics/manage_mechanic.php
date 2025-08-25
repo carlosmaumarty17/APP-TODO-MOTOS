@@ -10,35 +10,35 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 ?>
 <div class="card card-outline card-info">
 	<div class="card-header">
-		<h3 class="card-title"><?php echo isset($id) ? "Update ": "Create New " ?> Mechanic</h3>
+		<h3 class="card-title"><?php echo isset($id) ? "Editar ": "Nuevo " ?> Mecánico</h3>
 	</div>
 	<div class="card-body">
 		<form action="" id="mechanic-form">
 			<input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
 			<div class="form-group">
-				<label for="name" class="control-label">Full Name</label>
+				<label for="name" class="control-label">Nombre Completo</label>
                 <input name="name" id="name" type="text" class="form-control rounded-0" value="<?php echo isset($name) ? $name : ''; ?>" required>
 			</div>
             <div class="form-group">
-				<label for="contact" class="control-label">Contact</label>
+				<label for="contact" class="control-label">Teléfono de Contacto</label>
                 <input name="contact" id="contact" type="text" class="form-control rounded-0" value="<?php echo isset($contact) ? $contact : ''; ?>" required>
 			</div>
             <div class="form-group">
-				<label for="email" class="control-label">Email</label>
+				<label for="email" class="control-label">Correo Electrónico</label>
                 <input name="email" id="email" type="email" class="form-control rounded-0" value="<?php echo isset($email) ? $email : ''; ?>" required>
 			</div>
             <div class="form-group">
-				<label for="status" class="control-label">Status</label>
+				<label for="status" class="control-label">Estado</label>
                 <select name="status" id="status" class="custom-select selevt">
-                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Active</option>
-                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactive</option>
+                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Activo</option>
+                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactivo</option>
                 </select>
 			</div>
 		</form>
 	</div>
 	<div class="card-footer">
-		<button class="btn btn-flat btn-primary" form="mechanic-form">Save</button>
-		<a class="btn btn-flat btn-default" href="?page=mechanic">Cancel</a>
+		<button class="btn btn-flat btn-primary" form="mechanic-form">Guardar</button>
+		<a class="btn btn-flat btn-default" href="./?page=mechanics">Cancelar</a>
 	</div>
 </div>
 <script>
@@ -60,7 +60,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 dataType: 'json',
 				error:err=>{
 					console.log(err)
-					alert_toast("An error occured",'error');
+					alert_toast("Ocurrió un error",'error');
 					end_loader();
 				},
 				success:function(resp){
@@ -74,7 +74,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                             end_loader()
                     }else{
-						alert_toast("An error occured",'error');
+						alert_toast("Ocurrió un error",'error');
 						end_loader();
                         console.log(resp)
 					}

@@ -38,7 +38,7 @@ Class Master extends DBConnection {
 			return $this->capture_err();
 		if($check > 0){
 			$resp['status'] = 'failed';
-			$resp['msg'] = "Category already exist.";
+			$resp['msg'] = "La categoría ya existe.";
 			return json_encode($resp);
 			exit;
 		}
@@ -52,9 +52,9 @@ Class Master extends DBConnection {
 		if($save){
 			$resp['status'] = 'success';
 			if(empty($id))
-				$this->settings->set_flashdata('success',"New Category successfully saved.");
+				$this->settings->set_flashdata('success',"Nueva categoría guardada exitosamente.");
 			else
-				$this->settings->set_flashdata('success',"Category successfully updated.");
+				$this->settings->set_flashdata('success',"Categoría actualizada exitosamente.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['err'] = $this->conn->error."[{$sql}]";
@@ -66,7 +66,7 @@ Class Master extends DBConnection {
 		$del = $this->conn->query("UPDATE `categories` set delete_flag = 1 where id = '{$id}'");
 		if($del){
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Category successfully deleted.");
+			$this->settings->set_flashdata('success',"Categoría eliminada exitosamente.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
@@ -104,9 +104,9 @@ Class Master extends DBConnection {
 			$resp['status'] = 'success';
 			$id = empty($id) ? $this->conn->insert_id : $id;
 			if(empty($id))
-				$resp['msg'] = "New Brand successfully saved.";
+				$resp['msg'] = "Nueva marca guardada exitosamente.";
 			else
-				$resp['msg'] = "Brand successfully updated.";
+				$resp['msg'] = "Marca actualizada exitosamente.";
 			if(!empty($_FILES['img']['tmp_name'])){
 				$ext = $ext = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
 				$dir = base_app."uploads/brands/";
@@ -136,7 +136,7 @@ Class Master extends DBConnection {
 		$del = $this->conn->query("UPDATE `brand_list` set `delete_flag` = 1  where id = '{$id}'");
 		if($del){
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Brand successfully deleted.");
+			$this->settings->set_flashdata('success',"Marca eliminada exitosamente.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
@@ -176,9 +176,9 @@ Class Master extends DBConnection {
 			$pid = empty($id) ? $this->conn->insert_id : $id;
 			$resp['id'] = $pid ;
 			if(empty($id))
-				$resp['msg'] = "New Product successfully saved.";
+				$resp['msg'] = "Nuevo producto guardado correctamente.";
 			else
-				$resp['msg'] = "Product successfully updated.";
+				$resp['msg'] = "Producto actualizado correctamente.";
 			if(!empty($_FILES['img']['tmp_name'])){
 				$ext = $ext = pathinfo($_FILES['img']['name'], PATHINFO_EXTENSION);
 				$dir = base_app."uploads/products/";
@@ -231,7 +231,7 @@ Class Master extends DBConnection {
 			return $this->capture_err();
 		if($check > 0){
 			$resp['status'] = 'failed';
-			$resp['msg'] = "Service already exist.";
+			$resp['msg'] = "El servicio ya existe.";
 			return json_encode($resp);
 			exit;
 		}
@@ -245,9 +245,9 @@ Class Master extends DBConnection {
 		if($save){
 			$resp['status'] = 'success';
 			if(empty($id))
-				$this->settings->set_flashdata('success',"New Service successfully saved.");
+				$this->settings->set_flashdata('success',"Nuevo servicio guardado exitosamente.");
 			else
-				$this->settings->set_flashdata('success',"Service successfully updated.");
+				$this->settings->set_flashdata('success',"Servicio actualizado exitosamente.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['err'] = $this->conn->error."[{$sql}]";
@@ -255,11 +255,22 @@ Class Master extends DBConnection {
 		return json_encode($resp);
 	}
 	function delete_service(){
-		extract($_POST);
-		$del = $this->conn->query("UPDATE `service_list` set delete_flag = 1 where id = '{$id}'");
+	extract($_POST);
+		// Primero verificamos si hay solicitudes de servicio relacionadas
+		$check = $this->conn->query("SELECT COUNT(*) as total FROM `service_requests` WHERE service_type = (SELECT service FROM `service_list` WHERE id = '{$id}')");
+		$has_requests = $check->fetch_assoc()['total'] > 0;
+		
+		if($has_requests) {
+			// Si hay solicitudes relacionadas, marcamos como eliminado lógicamente
+			$del = $this->conn->query("UPDATE `service_list` SET delete_flag = 1 WHERE id = '{$id}'");
+		} else {
+			// Si no hay solicitudes relacionadas, eliminamos permanentemente
+			$del = $this->conn->query("DELETE FROM `service_list` WHERE id = '{$id}'");
+		}
+		
 		if($del){
 			$resp['status'] = 'success';
-			$this->settings->set_flashdata('success',"Service successfully deleted.");
+			$this->settings->set_flashdata('success',"Servicio eliminado exitosamente.");
 		}else{
 			$resp['status'] = 'failed';
 			$resp['error'] = $this->conn->error;
@@ -396,9 +407,9 @@ Class Master extends DBConnection {
 				$resp['status'] = 'success';
 				$resp['id'] = $rid;
 				if(empty($id))
-				$resp['msg'] = " Service Request has been submitted successfully.";
+				$resp['msg'] = " La solicitud de servicio se ha enviado correctamente.";
 				else
-				$resp['msg'] = " Service Request details has been updated successfully.";
+				$resp['msg'] = " Los detalles de la solicitud de servicio se han actualizado correctamente.";
 			}else{
 				$resp['status'] = 'failed';
 				$resp['error'] = $this->conn->error;
@@ -489,10 +500,10 @@ Class Master extends DBConnection {
 		$del = $this->conn->query("DELETE FROM `cart_list` where id = '{$cart_id}'");
 		if($del){
 			$resp['status'] = 'success';
-			$resp['msg'] = " Product has been remove from cart list successfully.";
+			$resp['msg'] = "El producto ha sido eliminado del carrito correctamente.";
 		}else{
 			$resp['status'] = 'failed';
-			$resp['msg'] = " Product has failed to remove from the cart list.";
+			$resp['msg'] = "No se pudo eliminar el producto del carrito.";
 			$resp['error'] = $this->conn->error;
 		}
 		if($resp['status'] == 'success')
@@ -554,7 +565,7 @@ Class Master extends DBConnection {
 					$resp['reference'] = $ref_code; // Usar ref_code como referencia
 					$resp['amount'] = (int)($total_amount * 100); // Convertir a centavos para Wompi
 					$resp['currency'] = 'COP';
-					$resp['public_key'] = 'pub_test_X0zDA9xoKdePzhd8a0x9HAez7HgGO2fH';
+					$resp['public_key'] = 'pub_test_7uCFxW8WrWZnhyaXf3sH9y99nXis5KxI';
 					$resp['redirect_url'] = base_url . '?p=my_orders';
 					
 					// Limpiar el carrito después de crear el pedido exitosamente
@@ -616,15 +627,41 @@ Class Master extends DBConnection {
 		$update = $this->conn->query("UPDATE `order_list` set `status` = '{$status}' where id = '{$id}'");
 		if($update){
 			$resp['status'] ='success';
-			$resp['msg'] = " Order's status has been updated successfully.";
+			$resp['msg'] = "El estado del pedido se ha actualizado correctamente.";
 		}else{
 			$resp['error'] = $this->conn->error;
 			$resp['status'] ='failed';
-			$resp['msg'] = " Order's status has failed to update.";
+			$resp['msg'] = "An error occurred while updating the order status. Error: ".$this->conn->error;
 		}
-		if($resp['status'] == 'success')
-		$this->settings->set_flashdata('success',$resp['msg']);
+		if($resp['status'] == 'success'){
+			$this->settings->set_flashdata('success',$resp['msg']);
+		}
 		return json_encode($resp);
+	}
+	function get_orders_status() {
+	    $resp = array('status' => 'failed', 'data' => array());
+	    
+	    if (isset($_POST['ids']) && is_array($_POST['ids']) && !empty($_POST['ids'])) {
+	        $ids = array_map('intval', $_POST['ids']); // Sanitizar IDs
+	        $ids = array_filter($ids); // Eliminar valores vacíos
+	        
+	        if (!empty($ids)) {
+	            $id_list = implode(",", $ids);
+	            $query = $this->conn->query("SELECT id, status FROM order_list WHERE id IN ($id_list) ORDER BY FIELD(id, $id_list)");
+	            
+	            if ($query && $query->num_rows > 0) {
+	                $resp['status'] = 'success';
+	                while ($row = $query->fetch_assoc()) {
+	                    $resp['data'][] = array(
+	                        'id' => $row['id'],
+	                        'status' => $row['status']
+	                    );
+	                }
+	            }
+	        }
+	    }
+	    
+	    return json_encode($resp);
 	}
 	function delete_order(){
 		extract($_POST);
@@ -709,6 +746,9 @@ switch ($action) {
 	break;
 	case 'update_order_status':
 		echo $Master->update_order_status();
+	break;
+	case 'get_orders_status':
+		echo $Master->get_orders_status();
 	break;
 	case 'delete_order':
 		echo $Master->delete_order();

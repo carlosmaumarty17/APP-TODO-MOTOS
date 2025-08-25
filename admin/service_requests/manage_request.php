@@ -33,41 +33,41 @@ while($row = $meta->fetch_assoc()){
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="vehicle_type" class="control-label">Vehicle Type</label>
+                    <label for="vehicle_type" class="control-label">Tipo de Vehículo</label>
                     <input type="text" name="vehicle_type" id="vehicle_type" class="form-control form-control-sm rounded-0" value="<?php echo isset($vehicle_type) ? $vehicle_type : "" ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="owner_name" class="control-label">Owner Fullname</label>
+                    <label for="owner_name" class="control-label">Nombre Completo del Propietario</label>
                     <input type="text" name="" id="owner_name" class="form-control form-control-sm rounded-0" value="<?php echo isset($fullname) ? $fullname : "" ?>" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="contact" class="control-label">Owner Contact #</label>
+                    <label for="contact" class="control-label">Teléfono del Propietario</label>
                     <input type="text" name="" id="contact" class="form-control form-control-sm rounded-0" value="<?php echo isset($contact) ? $contact : "" ?>" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="control-label">Owner Email</label>
+                    <label for="email" class="control-label">Correo del Propietario</label>
                     <input type="email" name="" id="email" class="form-control form-control-sm rounded-0" value="<?php echo isset($email) ? $email : "" ?>" disabled>
                 </div>
                 <div class="form-group">
-                    <label for="address" class="control-label">Address</label>
+                    <label for="address" class="control-label">Dirección</label>
                     <textarea rows="3" name="" id="address" class="form-control form-control-sm rounded-0" style="resize:none" disabled><?php echo isset($address) ? $address : "" ?></textarea>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="vehicle_name" class="control-label">Vehicle Name</label>
+                    <label for="vehicle_name" class="control-label">Nombre del Vehículo</label>
                     <input type="text" name="vehicle_name" id="vehicle_name" class="form-control form-control-sm rounded-0" value="<?php echo isset($vehicle_name) ? $vehicle_name : "" ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="vehicle_registration_number" class="control-label">Vehicle Registration Number</label>
+                    <label for="vehicle_registration_number" class="control-label">Número de Matrícula</label>
                     <input type="text" name="vehicle_registration_number" id="vehicle_registration_number" class="form-control form-control-sm rounded-0" value="<?php echo isset($vehicle_registration_number) ? $vehicle_registration_number : "" ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="vehicle_model" class="control-label">Vehicle Model</label>
+                    <label for="vehicle_model" class="control-label">Modelo del Vehículo</label>
                     <input type="text" name="vehicle_model" id="vehicle_model" class="form-control form-control-sm rounded-0" value="<?php echo isset($vehicle_model) ? $vehicle_model : "" ?>" required>
                 </div>
                 <div class="form-group">
-                    <label for="service_id" class="control-label">Services</label>
+                    <label for="service_id" class="control-label">Servicios</label>
                     <select name="service_id[]" id="service_id" class="form-select form-select-sm select2 rounded-0" multiple required>
                         <option disabled></option>
                         <?php 
@@ -79,14 +79,14 @@ while($row = $meta->fetch_assoc()){
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="service_type" class="control-label">Request Type</label>
+                    <label for="service_type" class="control-label">Tipo de Solicitud</label>
                     <select name="service_type" id="service_type" class="form-select form-select-sm select2 rounded-0" required>
-                        <option <?php echo isset($service_type) && $service_type == 'Drop Off' ? "selected" : '' ?>>Drop Off</option>
-                        <option <?php echo isset($service_type) && $service_type == 'Pick Up' ? "selected" : '' ?>>Pick Up</option>
+                        <option <?php echo isset($service_type) && $service_type == 'Drop Off' ? "selected" : '' ?>>Recogida en Taller</option>
+                        <option <?php echo isset($service_type) && $service_type == 'Pick Up' ? "selected" : '' ?>>Recogida a Domicilio</option>
                     </select>
                 </div>
                 <div class="form-group" <?php echo isset($service_type) && $service_type == 'Drop Off' ? 'style="display:none"' : '' ?>>
-                    <label for="pickup_address" class="control-label">Pick up Address</label>
+                    <label for="pickup_address" class="control-label">Dirección de Recogida</label>
                     <textarea rows="3" name="pickup_address" id="pickup_address" class="form-control form-control-sm rounded-0" style="resize:none"><?php echo isset($pickup_address) ? $pickup_address : "" ?></textarea>
                 </div>
             </div>
@@ -95,7 +95,7 @@ while($row = $meta->fetch_assoc()){
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group " id="mechanic-holder">
-                    <label for="mechanic_id" class="control-label">Assigned To:</label>
+                    <label for="mechanic_id" class="control-label">Asignado a:</label>
                     <select name="mechanic_id" id="mechanic_id" class="form-select form-select-sm rounded-0" required>
                         <option disabled <?php echo !isset($mechenic_id) || (isset($mechanic_id) && empty($mechanic_id)) ? "selected" : "" ?>></option>
                         <?php 
@@ -109,13 +109,13 @@ while($row = $meta->fetch_assoc()){
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="status" class="control-label">Status</label>
+                    <label for="status" class="control-label">Estado</label>
                     <select name="status" id="status" class="custom-select custom-select-sm rounded-0" required>
-                        <option value="0" <?php echo isset($status) && $status == 0 ? "selected" : '' ?>>Pending</option>
-                        <option value="1" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Confirmed</option>
-                        <option value="2" <?php echo isset($status) && $status == 2 ? "selected" : '' ?>>On-Progress</option>
-                        <option value="3" <?php echo isset($status) && $status == 3 ? "selected" : '' ?>>Done</option>
-                        <option value="4" <?php echo isset($status) && $status == 4 ? "selected" : '' ?>>Cancelled</option>
+                        <option value="0" <?php echo isset($status) && $status == 0 ? "selected" : '' ?>>Pendiente</option>
+                        <option value="1" <?php echo isset($status) && $status == 1 ? "selected" : '' ?>>Confirmado</option>
+                        <option value="2" <?php echo isset($status) && $status == 2 ? "selected" : '' ?>>En Progreso</option>
+                        <option value="3" <?php echo isset($status) && $status == 3 ? "selected" : '' ?>>Completado</option>
+                        <option value="4" <?php echo isset($status) && $status == 4 ? "selected" : '' ?>>Cancelado</option>
                     </select>
                 </div>
             </div>
@@ -123,8 +123,8 @@ while($row = $meta->fetch_assoc()){
     </div>
         <div class="w-100 d-flex justify-content-end mx-2">
             <div class="col-auto">
-                <button class="btn btn-primary btn-sm rounded-0">Save Request</button>
-                <button class="btn btn-light btn-sm rounded-0" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary btn-sm rounded-0">Guardar Solicitud</button>
+                <button class="btn btn-light btn-sm rounded-0" type="button" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </form>
@@ -132,11 +132,11 @@ while($row = $meta->fetch_assoc()){
 <script>
     $(function(){
         $('.select2').select2({
-            placeholder:"Please Select Here",
+            placeholder:"Seleccione una opción",
             dropdownParent: $('#uni_modal')
         })
         $('#mechanic_id').select2({
-            placeholder:"Please Select Here",
+            placeholder:"Seleccione una opción",
             dropdownParent: $('#mechanic-holder')
         })
         $('#service_type').change(function(){
@@ -160,21 +160,21 @@ while($row = $meta->fetch_assoc()){
                 dataType:'json',
                 error:err=>{
                     console.log(err)
-                    alert_toast("An error occured",'error');
+                    alert_toast("Ocurrió un error",'error');
                     end_loader()
                 },
                 success:function(resp){
                     end_loader()
                     if(resp.status == 'success'){
-                        alert_toast("Data successfully saved",'success');
+                        alert_toast("Datos guardados correctamente",'success');
                         setTimeout(() => {
-                            uni_modal("Service Request Details","service_requests/view_request.php?id="+resp.id,'large')
+                            uni_modal("Detalles de la Solicitud de Servicio","service_requests/view_request.php?id="+resp.id,'large')
                             $('#uni_modal').on('hidden.bs.modal',function(){
                                 location.reload()
                             })
                         }, 200);
                     }else{
-                        alert_toast("An error occured",'error');
+                        alert_toast("Ocurrió un error",'error');
                     }
                 }
             })

@@ -42,7 +42,7 @@ Class Users extends DBConnection {
 		if(empty($id)){
 			$qry = $this->conn->query("INSERT INTO users set {$data}");
 			if($qry){
-				$this->settings->set_flashdata('success','User Details successfully saved.');
+				$this->settings->set_flashdata('success','Detalles del usuario guardados exitosamente.');
 				return 1;
 			}else{
 				return 2;
@@ -51,7 +51,7 @@ Class Users extends DBConnection {
 		}else{
 			$qry = $this->conn->query("UPDATE users set $data where id = {$id}");
 			if($qry){
-				$this->settings->set_flashdata('success','User Details successfully updated.');
+				$this->settings->set_flashdata('success','Detalles del usuario actualizados exitosamente.');
 				foreach($_POST as $k => $v){
 					if($k != 'id'){
 						if(!empty($data)) $data .=" , ";
@@ -73,7 +73,7 @@ Class Users extends DBConnection {
 		$avatar = $this->conn->query("SELECT avatar FROM users where id = '{$id}'")->fetch_array()['avatar'];
 		$qry = $this->conn->query("DELETE FROM users where id = $id");
 		if($qry){
-			$this->settings->set_flashdata('success','User Details successfully deleted.');
+			$this->settings->set_flashdata('success','Detalles del usuario eliminados exitosamente.');
 			if(is_file(base_app.$avatar))
 				unlink(base_app.$avatar);
 			$resp['status'] = 'success';
@@ -94,7 +94,7 @@ Class Users extends DBConnection {
 				if($res['password'] != md5($_POST['oldpassword'])){
 					return  json_encode([
 						'status' =>'failed',
-						'msg'=>' Current Password is incorrect.'
+						'msg'=>'La contraseña actual es incorrecta.'
 					]);
 				}
 			}
@@ -111,7 +111,7 @@ Class Users extends DBConnection {
 		$check = $this->conn->query("SELECT * FROM `client_list` where email = '{$email}' and delete_flag ='0' ".(is_numeric($id) && $id > 0 ? " and id != '{$id}'" : "")." ")->num_rows;
 		if($check > 0){
 			$resp['status'] = 'failed';
-			$resp['msg'] = ' Email already exists in the database.';
+			$resp['msg'] = 'El correo electrónico ya existe en la base de datos.';
 		}else{
 			if(empty($id)){
 				$sql = "INSERT INTO `client_list` set $data";
@@ -122,25 +122,25 @@ Class Users extends DBConnection {
 			if($save){
 				$resp['status'] = 'success';
 				if(empty($id)){
-					$resp['msg'] = " Account is successfully registered.";
+					$resp['msg'] = "La cuenta se ha registrado exitosamente.";
 				}else if($this->settings->userdata('id') == $id && $this->settings->userdata('login_type') == 2){
-					$resp['msg'] = " Account Details has been updated successfully.";
+					$resp['msg'] = "Los detalles de la cuenta se han actualizado exitosamente.";
 					foreach($_POST as $k => $v){
 						if(!in_array($k,['password'])){
 							$this->settings->set_userdata($k,$v);
 						}
 					}
 				}else{
-					$resp['msg'] = " Client's Account Details has been updated successfully.";
+					$resp['msg'] = "Los detalles de la cuenta del cliente se han actualizado correctamente.";
 				}
 			}else{
 				$resp['status'] = 'failed';
 				if(empty($id)){
-					$resp['msg'] = " Account has failed to register for some reason.";
+					$resp['msg'] = "La cuenta no pudo registrarse por alguna razón.";
 				}else if($this->settings->userdata('id') == $id && $this->settings->userdata('login_type') == 2){
-					$resp['msg'] = " Account Details has failed to update.";
+					$resp['msg'] = "No se pudieron actualizar los detalles de la cuenta.";
 				}else{
-					$resp['msg'] = " Client's Account Details has failed to update.";
+					$resp['msg'] = "No se pudieron actualizar los detalles de la cuenta del cliente.";
 				}
 			}
 		}
@@ -156,10 +156,10 @@ Class Users extends DBConnection {
 		$del = $this->conn->query("UPDATE `client_list` set delete_flag = 1 where id='{$id}'");
 		if($del){
 			$resp['status'] = 'success';
-			$resp['msg'] = ' Client Account has been deleted successfully.';
+			$resp['msg'] = 'La cuenta de cliente ha sido eliminada exitosamente.';
 		}else{
 			$resp['status'] = 'failed';
-			$resp['msg'] = " Client Account has failed to delete";
+			$resp['msg'] = "No se pudo eliminar la cuenta de cliente";
 		}
 		if($resp['status'] =='success')
 		$this->settings->set_flashdata('success',$resp['msg']);

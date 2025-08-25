@@ -10,65 +10,65 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 ?>
 <div class="card card-outline card-info rounded-0">
 	<div class="card-header">
-		<h3 class="card-title"><?php echo isset($id) ? "Update ": "Create New " ?> Product</h3>
+		<h3 class="card-title"><?php echo isset($id) ? "Actualizar ": "Nuevo " ?> Producto</h3>
 	</div>
 	<div class="card-body">
 		<form action="" id="product-form">
 			<input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
             <div class="form-group">
-				<label for="brand_id" class="control-label">Brand</label>
+				<label for="brand_id" class="control-label">Marca</label>
                 <select name="brand_id" id="brand_id" class="custom-select select2">
                     <option value="" <?= !isset($brand_id) ? "selected" : "" ?> disabled></option>
                     <?php 
                     $brands = $conn->query("SELECT * FROM brand_list where delete_flag = 0 ".(isset($brand_id) ? " or id = '{$brand_id}'" : "")." order by `name` asc ");
                     while($row= $brands->fetch_assoc()):
                     ?>
-                    <option value="<?= $row['id'] ?>" <?= isset($brand_id) && $brand_id == $row['id'] ? "selected" : "" ?>><?= $row['name'] ?> <?= $row['delete_flag'] == 1 ? "<small>Deleted</small>" : "" ?></option>
+                    <option value="<?= $row['id'] ?>" <?= isset($brand_id) && $brand_id == $row['id'] ? "selected" : "" ?>><?= $row['name'] ?> <?= $row['delete_flag'] == 1 ? "<small>Eliminada</small>" : "" ?></option>
                     <?php endwhile; ?>
                 </select>
 			</div>
             <div class="form-group">
-				<label for="category_id" class="control-label">Category</label>
+				<label for="category_id" class="control-label">Categoría</label>
                 <select name="category_id" id="category_id" class="custom-select select2">
                     <option value="" <?= !isset($category_id) ? "selected" : "" ?> disabled></option>
                     <?php 
                     $categories = $conn->query("SELECT * FROM categories where delete_flag = 0 ".(isset($category_id) ? " or id = '{$category_id}'" : "")." order by `category` asc ");
                     while($row= $categories->fetch_assoc()):
                     ?>
-                    <option value="<?= $row['id'] ?>" <?= isset($category_id) && $category_id == $row['id'] ? "selected" : "" ?>><?= $row['category'] ?> <?= $row['delete_flag'] == 1 ? "<small>Deleted</small>" : "" ?></option>
+                    <option value="<?= $row['id'] ?>" <?= isset($category_id) && $category_id == $row['id'] ? "selected" : "" ?>><?= $row['category'] ?> <?= $row['delete_flag'] == 1 ? "<small>Eliminada</small>" : "" ?></option>
                     <?php endwhile; ?>
                 </select>
 			</div>
 			<div class="form-group">
-				<label for="name" class="control-label">Name</label>
+				<label for="name" class="control-label">Nombre</label>
                 <input name="name" id="name" type="text" class="form-control rounded-0" value="<?php echo isset($name) ? $name : ''; ?>" required>
 			</div>
 			<div class="form-group">
-				<label for="models" class="control-label">Compatible for: <small>(model)</small></label>
+				<label for="models" class="control-label">Modelos compatibles: <small>(modelo)</small></label>
                 <input name="models" id="models" type="text" class="form-control rounded-0" value="<?php echo isset($models) ? $models : ''; ?>" required>
 			</div>
             <div class="form-group">
-				<label for="description" class="control-label">Description</label>
+				<label for="description" class="control-label">Descripción</label>
                 <textarea name="description" id="description" type="text" class="form-control rounded-0 summernote" required><?php echo isset($description) ? $description : ''; ?></textarea>
 			</div>
 			<div class="form-group">
-				<label for="price" class="control-label">Price</label>
+				<label for="price" class="control-label">Precio</label>
                 <input name="price" id="price" type="number" class="form-control rounded-0 text-right" value="<?php echo isset($price) ? $price : 0; ?>" required>
 			</div>
             <div class="form-group">
-				<label for="status" class="control-label">Status</label>
+				<label for="status" class="control-label">Estado</label>
                 <select name="status" id="status" class="custom-select selevt">
-                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Active</option>
-                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactive</option>
+                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Activo</option>
+                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactivo</option>
                 </select>
 			</div>
 			<div class="form-group">
 				<div class="row">
 					<div class="col-md-6">
-						<label for="" class="control-label">Product Image</label>
+						<label for="" class="control-label">Imagen del Producto</label>
 						<div class="custom-file">
 							<input type="file" class="custom-file-input rounded-circle" id="customFile" name="img" onchange="displayImg(this,$(this))">
-							<label class="custom-file-label" for="customFile">Choose file</label>
+							<label class="custom-file-label" for="customFile">Seleccionar archivo</label>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -82,8 +82,8 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 		</form>
 	</div>
 	<div class="card-footer">
-		<button class="btn btn-flat btn-primary" form="product-form">Save</button>
-		<a class="btn btn-flat btn-default" href="?page=products">Cancel</a>
+		<button class="btn btn-flat btn-primary" form="product-form">Guardar</button>
+		<a class="btn btn-flat btn-default" href="?page=products">Cancelar</a>
 	</div>
 </div>
 <script>
@@ -98,13 +98,13 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 	        reader.readAsDataURL(input.files[0]);
 	    }else{
             $('#cimg').attr('src', "<?php echo validate_image(isset($image_path) ? $image_path : "") ?>");
-            _this.siblings('.custom-file-label').html("Choose file")
+            _this.siblings('.custom-file-label').html("Seleccionar archivo")
         }
 	}
 	$(document).ready(function(){
 		$('.select2').select2({
 			width:'100%',
-			placeholder:"Please Select Here"
+			placeholder:"Seleccione una opción"
 		})
 		$('#product-form').submit(function(e){
 			e.preventDefault();
@@ -122,7 +122,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 dataType: 'json',
 				error:err=>{
 					console.log(err)
-					alert_toast("An error occured",'error');
+					alert_toast("Ocurrió un error",'error');
 					end_loader();
 				},
 				success:function(resp){
@@ -136,7 +136,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                             end_loader()
                     }else{
-						alert_toast("An error occured",'error');
+						alert_toast("Ocurrió un error",'error');
 						end_loader();
                         console.log(resp)
 					}

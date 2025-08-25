@@ -14,14 +14,14 @@ if(isset($_GET['id'])){
     <form action="" id="update_order">
         <input type="hidden" name="id" value="<?= isset($id) ? $id : "" ?>">
         <div class="form-group">
-            <label for="status" class="control-label">Status</label>
+            <label for="status" class="control-label">Estado</label>
             <select name="status" id="status" class="custom-select form-control-sm">
-                <option value="0" <?= isset($status) && $status == 0 ? 'selected' : "" ?>>Pending</option>
-                <option value="1" <?= isset($status) && $status == 1 ? 'selected' : "" ?>>Packed</option>
-                <option value="2" <?= isset($status) && $status == 2 ? 'selected' : "" ?>>For Delivery</option>
-                <option value="3" <?= isset($status) && $status == 3 ? 'selected' : "" ?>>On the Way</option>
-                <option value="4" <?= isset($status) && $status == 4 ? 'selected' : "" ?>>Delivered</option>
-                <option value="5" <?= isset($status) && $status == 5 ? 'selected' : "" ?>>Cancelled</option>
+                <option value="0" <?= isset($status) && $status == 0 ? 'selected' : "" ?>>Pendiente</option>
+                <option value="1" <?= isset($status) && $status == 1 ? 'selected' : "" ?>>Empacado</option>
+                <option value="2" <?= isset($status) && $status == 2 ? 'selected' : "" ?>>Para Envío</option>
+                <option value="3" <?= isset($status) && $status == 3 ? 'selected' : "" ?>>En Camino</option>
+                <option value="4" <?= isset($status) && $status == 4 ? 'selected' : "" ?>>Entregado</option>
+                <option value="5" <?= isset($status) && $status == 5 ? 'selected' : "" ?>>Cancelado</option>
             </select>
         </div>
     </form>
@@ -44,7 +44,7 @@ if(isset($_GET['id'])){
                 dataType: 'json',
 				error:err=>{
 					console.log(err)
-					alert_toast("An error occured",'error');
+					alert_toast("Ocurrió un error",'error');
 					end_loader();
 				},
 				success:function(resp){
@@ -58,7 +58,7 @@ if(isset($_GET['id'])){
                             $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                             end_loader()
                     }else{
-						alert_toast("An error occured",'error');
+						alert_toast("Ocurrió un error",'error');
 						end_loader();
                         console.log(resp)
 					}

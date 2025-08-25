@@ -5,9 +5,9 @@
 <?php endif;?>
 <div class="card card-outline card-primary">
 	<div class="card-header">
-		<h3 class="card-title">List of Service Requests</h3>
+		<h3 class="card-title">Lista de Solicitudes de Servicio</h3>
 		<div class="card-tools">
-			<a href="javascript:void(0)" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Create New</a>
+			<a href="javascript:void(0)" id="create_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Crear Nueva</a>
 		</div>
 	</div>
 	<div class="card-body">
@@ -24,11 +24,11 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Date Created</th>
-						<th>Client Name</th>
-						<th>Service</th>
-						<th>Status</th>
-						<th>Action</th>
+						<th>Fecha de Creación</th>
+						<th>Nombre del Cliente</th>
+						<th>Servicio</th>
+						<th>Estado</th>
+						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -57,28 +57,28 @@
 							</td>
 							<td class="text-center">
 								<?php if($row['status'] == 1): ?>
-									<span class="badge badge-primary rounded-pill px-3">Confirmed</span>
+									<span class="badge badge-primary rounded-pill px-3">Confirmado</span>
 								<?php elseif($row['status'] == 2): ?>
-									<span class="badge badge-warning rounded-pill px-3">On-progress</span>
+									<span class="badge badge-warning rounded-pill px-3">En Progreso</span>
 								<?php elseif($row['status'] == 3): ?>
-									<span class="badge badge-success rounded-pill px-3">Done</span>
+									<span class="badge badge-success rounded-pill px-3">Completado</span>
 								<?php elseif($row['status'] == 4): ?>
-									<span class="badge badge-danger rounded-pill px-3">Cancelled</span>
+									<span class="badge badge-danger rounded-pill px-3">Cancelado</span>
 								<?php else: ?>
-									<span class="badge badge-secondary rounded-pill px-3">Pending</span>
+									<span class="badge badge-secondary rounded-pill px-3">Pendiente</span>
 								<?php endif; ?>
 							</td>
 							<td align="center">
 								 <button type="button" class="btn btn-flat btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
-				                  		Action
+				                  		Acciones
 				                    <span class="sr-only">Toggle Dropdown</span>
 				                  </button>
 				                  <div class="dropdown-menu" role="menu">
-				                    <a class="dropdown-item view_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-eye text-primary"></span> View</a>
+				                    <a class="dropdown-item view_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-eye text-primary"></span> Ver</a>
 				                    <div class="dropdown-divider"></div>
-				                    <a class="dropdown-item edit_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Edit</a>
+				                    <a class="dropdown-item edit_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-edit text-primary"></span> Editar</a>
 				                    <div class="dropdown-divider"></div>
-				                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Delete</a>
+				                    <a class="dropdown-item delete_data" href="javascript:void(0)" data-id="<?php echo $row['id'] ?>"><span class="fa fa-trash text-danger"></span> Eliminar</a>
 				                  </div>
 							</td>
 						</tr>
@@ -92,16 +92,16 @@
 <script>
 	$(document).ready(function(){
 		$('.delete_data').click(function(){
-			_conf("Are you sure to delete this service request permanently?","delete_service_request",[$(this).attr('data-id')])
+			_conf("¿Está seguro de eliminar permanentemente esta solicitud de servicio?","delete_service_request",[$(this).attr('data-id')])
 		})
 		$('.view_data').click(function(){
-			uni_modal("Service Request Details","service_requests/view_request.php?id="+$(this).attr('data-id'),'large')
+			uni_modal("Detalles de la Solicitud de Servicio","service_requests/view_request.php?id="+$(this).attr('data-id'),'large')
 		})
 		$('#create_new').click(function(){
-			uni_modal("Service Request Details","service_requests/manage_request.php",'large')
+			uni_modal("Detalles de la Solicitud de Servicio","service_requests/manage_request.php",'large')
 		})
 		$('.edit_data').click(function(){
-			uni_modal("Service Request Details","service_requests/manage_request.php?id="+$(this).attr('data-id'),'large')
+			uni_modal("Detalles de la Solicitud de Servicio","service_requests/manage_request.php?id="+$(this).attr('data-id'),'large')
 		})
 		$('.table').dataTable();
 	})
@@ -114,14 +114,14 @@
 			dataType:"json",
 			error:err=>{
 				console.log(err)
-				alert_toast("An error occured.",'error');
+				alert_toast("Ocurrió un error.",'error');
 				end_loader();
 			},
 			success:function(resp){
 				if(typeof resp== 'object' && resp.status == 'success'){
 					location.reload();
 				}else{
-					alert_toast("An error occured.",'error');
+					alert_toast("Ocurrió un error.",'error');
 					end_loader();
 				}
 			}

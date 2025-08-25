@@ -5,9 +5,9 @@
 <?php endif;?>
 <div class="card card-outline card-primary">
 	<div class="card-header">
-		<h3 class="card-title">Product Stocks</h3>
+		<h3 class="card-title">Inventario de Productos</h3>
 		<div class="card-tools">
-			<a href="javascript:void(0)" id="add_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Add New</a>
+			<a href="javascript:void(0)" id="add_new" class="btn btn-flat btn-primary"><span class="fas fa-plus"></span>  Agregar Nuevo</a>
 		</div>
 	</div>
 	<div class="card-body">
@@ -25,11 +25,11 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Date Created</th>
-						<th>Brand</th>
-						<th>Proudct</th>
-						<th>Quantity</th>
-						<th>Action</th>
+						<th>Fecha de Creación</th>
+						<th>Marca</th>
+						<th>Producto</th>
+						<th>Cantidad</th>
+						<th>Acciones</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -51,11 +51,11 @@
 							<td class="text-right"><?= number_format($row['available']) ?></td>
 							<td align="center">
 								 <button type="button" class="btn btn-flat btn-default btn-sm dropdown-toggle dropdown-icon" data-toggle="dropdown">
-				                  		Action
-				                    <span class="sr-only">Toggle Dropdown</span>
+				                  		Acciones
+				                    <span class="sr-only">Menú desplegable</span>
 				                  </button>
 				                  <div class="dropdown-menu" role="menu">
-                                    <a class="dropdown-item" href="?page=inventory/view_stock&id=<?php echo $row['id'] ?>"><span class="fa fa-eye text-dark"></span> View</a>
+                                    <a class="dropdown-item" href="?page=inventory/view_stock&id=<?php echo $row['id'] ?>"><span class="fa fa-eye text-dark"></span> Ver</a>
 				                  </div>
 							</td>
 						</tr>
@@ -69,7 +69,7 @@
 <script>
 	$(document).ready(function(){
 		$('#add_new').click(function(){
-			uni_modal("Add New Stock","inventory/manage_stock.php")
+			uni_modal("Agregar Nuevo Stock","inventory/manage_stock.php")
 		})
 		$('.delete_data').click(function(){
 			_conf("Are you sure to delete this product permanently?","delete_product",[$(this).attr('data-id')])

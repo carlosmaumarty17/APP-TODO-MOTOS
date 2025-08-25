@@ -21,21 +21,21 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
     <form action="" id="brand-form">
         <input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
         <div class="form-group">
-            <label for="name" class="control-label">Name</label>
+            <label for="name" class="control-label">Nombre</label>
             <input name="name" id="name" class="form-control form-control-sm" value="<?php echo isset($name) ? $name : ''; ?>" required/>
         </div>
         <div class="form-group">
-            <label for="status" class="control-label">Status</label>
+            <label for="status" class="control-label">Estado</label>
             <select name="status" id="status" class="custom-select selevt">
-            <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Active</option>
-            <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactive</option>
+            <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Activo</option>
+            <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactivo</option>
             </select>
         </div>
         <div class="form-group">
-            <label for="" class="control-label">Brand Logo</label>
+            <label for="" class="control-label">Logo de la Marca</label>
             <div class="custom-file">
                 <input type="file" class="custom-file-input rounded-circle" id="customFile" name="img" onchange="displayImg(this,$(this))">
-                <label class="custom-file-label" for="customFile">Choose file</label>
+                <label class="custom-file-label" for="customFile">Seleccionar archivo</label>
             </div>
         </div>
         <div class="form-group d-flex justify-content-center">
@@ -55,7 +55,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 	        reader.readAsDataURL(input.files[0]);
 	    }else{
             $('#cimg').attr('src', "<?php echo validate_image(isset($image_path) ? $image_path : "") ?>");
-            _this.siblings('.custom-file-label').html("Choose file")
+            _this.siblings('.custom-file-label').html("Seleccionar archivo")
         }
 	}
 	$(document).ready(function(){
@@ -75,7 +75,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 dataType: 'json',
 				error:err=>{
 					console.log(err)
-					alert_toast("An error occured",'error');
+					alert_toast("Ocurrió un error",'error');
 					end_loader();
 				},
 				success:function(resp){
@@ -89,7 +89,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                             end_loader()
                     }else{
-						alert_toast("An error occured",'error');
+						alert_toast("Ocurrió un error",'error');
 						end_loader();
                         console.log(resp)
 					}

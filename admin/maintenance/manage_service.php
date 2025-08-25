@@ -10,32 +10,32 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 ?>
 <div class="card card-outline card-info">
 	<div class="card-header">
-		<h3 class="card-title"><?php echo isset($id) ? "Update ": "Create New " ?> Service</h3>
+		<h3 class="card-title"><?php echo isset($id) ? "Actualizar ": "Crear Nuevo " ?> Servicio</h3>
 	</div>
 	<div class="card-body">
 		<form action="" id="service-form">
 			<input type="hidden" name ="id" value="<?php echo isset($id) ? $id : '' ?>">
 			<div class="form-group">
-				<label for="service" class="control-label">Service Name</label>
+				<label for="service" class="control-label">Nombre del Servicio</label>
                 <textarea name="service" id="" cols="30" rows="2" class="form-control form no-resize"><?php echo isset($service) ? $service : ''; ?></textarea>
 			</div>
 			<div class="form-group">
-				<label for="description" class="control-label">Description</label>
+				<label for="description" class="control-label">Descripción</label>
                 <textarea name="description" id="" cols="30" rows="2" class="form-control form no-resize summernote"><?php echo isset($description) ? html_entity_decode(stripslashes($description)) : ''; ?></textarea>
 			</div>
             <div class="form-group">
-				<label for="status" class="control-label">Status</label>
+				<label for="status" class="control-label">Estado</label>
                 <select name="status" id="status" class="custom-select selevt">
-                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Active</option>
-                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactive</option>
+                <option value="1" <?php echo isset($status) && $status == 1 ? 'selected' : '' ?>>Activo</option>
+                <option value="0" <?php echo isset($status) && $status == 0 ? 'selected' : '' ?>>Inactivo</option>
                 </select>
 			</div>
 			
 		</form>
 	</div>
 	<div class="card-footer">
-		<button class="btn btn-flat btn-primary" form="service-form">Save</button>
-		<a class="btn btn-flat btn-default" href="?page=maintenance/service">Cancel</a>
+		<button class="btn btn-flat btn-primary" form="service-form">Guardar</button>
+		<a class="btn btn-flat btn-default" href="?page=maintenance/services">Cancelar</a>
 	</div>
 </div>
 <script>
@@ -57,7 +57,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                 dataType: 'json',
 				error:err=>{
 					console.log(err)
-					alert_toast("An error occured",'error');
+					alert_toast("Ocurrió un error",'error');
 					end_loader();
 				},
 				success:function(resp){
@@ -71,7 +71,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
                             $("html, body").animate({ scrollTop: _this.closest('.card').offset().top }, "fast");
                             end_loader()
                     }else{
-						alert_toast("An error occured",'error');
+						alert_toast("Ocurrió un error",'error');
 						end_loader();
                         console.log(resp)
 					}

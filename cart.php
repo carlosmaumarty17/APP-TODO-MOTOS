@@ -8,7 +8,7 @@
 </style>
 <div class="content py-5 mt-3">
     <div class="container">
-        <h3><b>My Shopping Cart</b></h3>
+        <h3><b>Mi Carrito de Compras</b></h3>
         <hr>
         <div class="card card-outline card-primary shadow rounded-0">
             <div class="w-100" id="cart-list">
@@ -42,7 +42,7 @@
                                     </div>
                                     <span class="ml-2">X <?= number_format($row['price'],2) ?></span>
                                 </div>
-                                <button class="btn btn-sm btn-flat btn-outline-danger btn-remove" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i> Remove</button>
+                                <button class="btn btn-sm btn-flat btn-outline-danger btn-remove" data-id="<?= $row['id'] ?>"><i class="fa fa-times"></i> Eliminar</button>
                             </div>
                          </div>
                     </div>
@@ -54,7 +54,7 @@
                 <?php if($cart->num_rows <= 0): ?>
                 <div class="d-flex align-items-center w-100 border justify-content-center">
                     <div class="col-12 flex-grow-1 flex-shrink-1 px-1 py-1">
-                           <small class="text-muted">No Data</small>
+                           <small class="text-muted">No hay productos</small>
                     </div>
                 </div>
                 <?php endif; ?>
@@ -70,7 +70,7 @@
         </div>
         <div class="clear-fix my-2"></div>
         <div class="text-right">
-            <button class="btn btn-flat btn-sm btn-dark" type="button" id="checkout">Checkout</button>
+            <button class="btn btn-flat btn-sm btn-dark" type="button" id="checkout">Pagar Ahora</button>
         </div>
     </div>
 </div>
@@ -84,7 +84,7 @@
             dataType:'json',
             error:err=>{
                 console.error(err)
-                alert_toast('An error occurred.','error')
+                alert_toast('Ocurrió un error.','error')
                 end_loader()
             },
             success:function(resp){
@@ -93,7 +93,7 @@
                 }else if(!!resp.msg){
                     alert_toast(resp.msg,'error')
                 }else{
-                    alert_toast('An error occurred.','error')
+                    alert_toast('Ocurrió un error.','error')
                 }
                 end_loader();
             }
@@ -107,13 +107,13 @@
             update_quantity($(this).attr('data-id'),"+ 1")
         })
         $('.btn-remove').click(function(){
-            _conf("Are you sure to remove this product from cart list?","remove_from_cart",[$(this).attr('data-id')])
+            _conf("¿Está seguro de eliminar este producto del carrito?","remove_from_cart",[$(this).attr('data-id')])
         })
         $('#checkout').click(function(){
             if($('#cart-list .cart-item').length > 0){
                 location.href="./?p=place_order"
             }else{
-                alert_toast('Shopping cart is empty.','error')
+                alert_toast('El carrito de compras está vacío.','error')
             }
         })
     })
@@ -126,7 +126,7 @@
             dataType:'json',
             error:err=>{
                 console.error(err)
-                alert_toast('An error occurred.','error')
+                alert_toast('Ocurrió un error.','error')
                 end_loader()
             },
             success:function(resp){
@@ -135,7 +135,7 @@
                 }else if(!!resp.msg){
                     alert_toast(resp.msg,'error')
                 }else{
-                    alert_toast('An error occurred.','error')
+                    alert_toast('Ocurrió un error.','error')
                 }
                 end_loader();
             }

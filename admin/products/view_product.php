@@ -19,61 +19,62 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <div class="content py-3">
     <div class="card card-outline rounded-0 card-primary shadow">
         <div class="card-header">
-            <h4 class="card-title">Product Details</h4>
+            <h4 class="card-title">Detalles del Producto</h4>
             <div class="card-tools">
-                <a class="btn btn-primary btn-sm btn-flat" href="./?page=products/manage_product&id=<?= isset($id) ? $id : "" ?>"><i class="fa fa-edit"></i> Edit</a>
-                <a class="btn btn-danger btn-sm btn-flat" href="javascript:void(0)>" id="delete_data"><i class="fa fa-trash"></i> Delete</a>
-                <a class="btn btn-default border btn-sm btn-flat" href="./?page=products"><i class="fa fa-angle-left"></i> Back</a>
+                <a class="btn btn-primary btn-sm btn-flat" href="./?page=products/manage_product&id=<?= isset($id) ? $id : "" ?>"><i class="fa fa-edit"></i> Editar</a>
+                <a class="btn btn-danger btn-sm btn-flat" href="javascript:void(0)>" id="delete_data"><i class="fa fa-trash"></i> Eliminar</a>
+                <a class="btn btn-default border btn-sm btn-flat" href="./?page=products"><i class="fa fa-angle-left"></i> Volver</a>
             </div>
         </div>
         <div class="card-body">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 text-center">
+                        <img src="<?= validate_image(isset($image_path) ? $image_path : "") ?>" alt="Imagen del Producto <?= isset($name) ? $name : "" ?>" class="img-thumbnail product-img">
                         <img src="<?= validate_image(isset($image_path) ? $image_path : "") ?>" alt="Product Image <?= isset($name) ? $name : "" ?>" class="img-thumbnail product-img">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <small class="mx-2 text-muted">Brand Name</small>
+                        <small class="mx-2 text-muted">Marca</small>
                         <div class="pl-4"><?= isset($brand) ? $brand : '' ?></div>
                     </div>
                     <div class="col-md-6">
-                        <small class="mx-2 text-muted">Category</small>
+                        <small class="mx-2 text-muted">Categoría</small>
                         <div class="pl-4"><?= isset($category) ? $category : '' ?></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <small class="mx-2 text-muted">Compatible Models</small>
+                        <small class="mx-2 text-muted">Modelos Compatibles</small>
                         <div class="pl-4"><?= isset($models) ? $models : '' ?></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <small class="mx-2 text-muted">Name</small>
+                        <small class="mx-2 text-muted">Nombre</small>
                         <div class="pl-4"><?= isset($name) ? $name : '' ?></div>
                     </div>
                     <div class="col-md-6">
-                        <small class="mx-2 text-muted">Price</small>
+                        <small class="mx-2 text-muted">Precio</small>
                         <div class="pl-4"><?= isset($price) ? number_format($price,2) : '' ?></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <small class="mx-2 text-muted">Description</small>
+                        <small class="mx-2 text-muted">Descripción</small>
                         <div class="pl-4"><?= isset($description) ? html_entity_decode($description) : '' ?></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <small class="mx-2 text-muted">Status</small>
+                        <small class="mx-2 text-muted">Estado</small>
                         <div class="pl-4">
                             <?php if(isset($status)): ?>
                             <?php if($status == 1): ?>
-                                <span class="badge badge-success px-3 rounded-pill">Active</span>
+                                <span class="badge badge-success px-3 rounded-pill">Activo</span>
                             <?php else: ?>
-                                <span class="badge badge-danger px-3 rounded-pill">Inactive</span>
+                                <span class="badge badge-danger px-3 rounded-pill">Inactivo</span>
                             <?php endif; ?>
                             <?php endif; ?>
                         </div>
@@ -87,7 +88,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 <script>
     $(document).ready(function(){
 		$('#delete_data').click(function(){
-			_conf("Are you sure to delete this product permanently?","delete_product",[])
+			_conf("¿Estás seguro de eliminar este producto permanentemente?","delete_product",[])
 		})
     })
     function delete_product($id = '<?= isset($id) ? $id : "" ?>'){
@@ -106,7 +107,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 				if(typeof resp== 'object' && resp.status == 'success'){
 					location.href= './?page=products';
 				}else{
-					alert_toast("An error occured.",'error');
+					alert_toast("Ocurrió un error.",'error');
 					end_loader();
 				}
 			}

@@ -18,20 +18,20 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 		<input type="hidden" name ="product_id" value="<?php echo $product_id ?>">
 		<?php else: ?>
 		<div class="form-group">
-			<label for="product_id" class="control-label">Product</label>
+			<label for="product_id" class="control-label">Producto</label>
 			<select name="product_id" id="product_id" class="custom-select select2">
-				<option value="" <?= !isset($product_id) ? "selected" : "" ?> disabled></option>
+				<option value="" <?= !isset($product_id) ? "selected" : "" ?> disabled>Seleccionar Producto</option>
 				<?php 
 				$product = $conn->query("SELECT p.*,b.name as brand from `product_list` p inner join brand_list b on p.brand_id = b.id where p.delete_flag = 0 ".(isset($product_id) ? " or p.id = '{$product_id}'" : "")." order by (p.`name`) asc ");
 				while($row= $product->fetch_assoc()):
 				?>
-				<option value="<?= $row['id'] ?>" <?= isset($product_id) && $product_id == 1 ? "selected" : "" ?>><?= $row['brand'].' - '.$row['name'] ?> <?= $row['status'] == 0 ? "<small>(Inactive)</small>" : "" ?> <?= $row['delete_flag'] == 1 ? "<small>(Deleted)</small>" : "" ?></option>
+				<option value="<?= $row['id'] ?>" <?= isset($product_id) && $product_id == 1 ? "selected" : "" ?>><?= $row['brand'].' - '.$row['name'] ?> <?= $row['status'] == 0 ? "<small>(Inactivo)</small>" : "" ?> <?= $row['delete_flag'] == 1 ? "<small>(Eliminado)</small>" : "" ?></option>
 				<?php endwhile; ?>
 			</select>
 		</div>
 		<?php endif; ?>
 		<div class="form-group">
-			<label for="quantity" class="control-label">Quantity</label>
+			<label for="quantity" class="control-label">Cantidad</label>
 			<input name="quantity" id="quantity" type="number" min="1" class="form-control rounded-0 text-right" value="<?php echo isset($quantity) ? $quantity : 1; ?>" required>
 		</div>
 		
@@ -42,7 +42,7 @@ if(isset($_GET['id']) && $_GET['id'] > 0){
 		$('#uni_modal').on('shown.bs.modal',function(){
 			$('.select2').select2({
 				width:'100%',
-				placeholder:"Please Select Here",
+				placeholder:"Seleccione una opción",
 				dropdownParent:$('#uni_modal')
 			})
 			$('.summernote').summernote({

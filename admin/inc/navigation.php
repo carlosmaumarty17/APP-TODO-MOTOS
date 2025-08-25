@@ -27,7 +27,7 @@
                       <a href="./" class="nav-link nav-home">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
-                          Dashboard
+                          Panel de Control
                         </p>
                       </a>
                     </li> 
@@ -35,7 +35,7 @@
                       <a href="<?php echo base_url ?>admin/?page=products" class="nav-link nav-products">
                         <i class="nav-icon fas fa-table"></i>
                         <p>
-                          Product List
+                          Lista de Productos
                         </p>
                       </a>
                     </li>
@@ -43,7 +43,7 @@
                       <a href="<?php echo base_url ?>admin/?page=inventory" class="nav-link nav-inventory">
                         <i class="nav-icon fas fa-boxes"></i>
                         <p>
-                          Inventory
+                          Inventario
                         </p>
                       </a>
                     </li>
@@ -51,7 +51,7 @@
                       <a href="<?php echo base_url ?>admin/?page=orders" class="nav-link nav-orders">
                         <i class="nav-icon fas fa-tasks"></i>
                         <p>
-                          Orders
+                          Pedidos
                         </p>
                       </a>
                     </li>
@@ -59,7 +59,7 @@
                       <a href="<?php echo base_url ?>admin/?page=service_requests" class="nav-link nav-service_requests">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
-                          Service Requests
+                          Solicitudes de Servicio
                         </p>
                       </a>
                     </li>
@@ -67,7 +67,7 @@
                       <a href="<?php echo base_url ?>admin/?page=mechanics" class="nav-link nav-mechanics">
                         <i class="nav-icon fas fa-user-friends"></i>
                         <p>
-                          Mechanic List
+                          Lista de Mecánicos
                         </p>
                       </a>
                     </li>
@@ -75,34 +75,34 @@
                       <a href="<?php echo base_url ?>admin/?page=clients" class="nav-link nav-clients">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
-                          Registered Clients
+                          Clientes Registrados
                         </p>
                       </a>
                     </li>
-                    <li class="nav-header">Reports</li>
+                    <li class="nav-header">Reportes</li>
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=report/service_requests" class="nav-link nav-report_service_requests">
-                        <i class="nav-icon fas fa-circle"></i>
+                        <i class="nav-icon fas fa-clipboard-list"></i>
                         <p>
-                          Service Requests Report
+                          Informe de Solicitudes
                         </p>
                       </a>
                     </li>
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=report/orders" class="nav-link nav-report_orders">
-                        <i class="nav-icon fas fa-circle"></i>
+                        <i class="nav-icon fas fa-file-invoice-dollar"></i>
                         <p>
-                          Orders Report
+                          Informe de Pedidos
                         </p>
                       </a>
                     </li>
                     <?php if($_settings->userdata('type') == 1): ?>
-                    <li class="nav-header">Maintenance</li>
+                    <li class="nav-header">Mantenimiento</li>
                     <li class="nav-item dropdown">
                       <a href="<?php echo base_url ?>admin/?page=maintenance/brands" class="nav-link nav-maintenance_brands">
                         <i class="nav-icon fas fa-copyright"></i>
                         <p>
-                          Brand List
+                          Lista de Marcas
                         </p>
                       </a>
                     </li>
@@ -110,7 +110,7 @@
                       <a href="<?php echo base_url ?>admin/?page=maintenance/category" class="nav-link nav-maintenance_category">
                         <i class="nav-icon fas fa-th-list"></i>
                         <p>
-                          Category List
+                          Lista de Categorías
                         </p>
                       </a>
                     </li>
@@ -118,7 +118,7 @@
                       <a href="<?php echo base_url ?>admin/?page=maintenance/services" class="nav-link nav-maintenance_services">
                         <i class="nav-icon fas fa-th-list"></i>
                         <p>
-                          Service List
+                          Lista de Servicios
                         </p>
                       </a>
                     </li>
@@ -126,7 +126,7 @@
                       <a href="<?php echo base_url ?>admin/?page=user/list" class="nav-link nav-user_list">
                         <i class="nav-icon fas fa-users-cog"></i>
                         <p>
-                          User List
+                          Lista de Usuarios
                         </p>
                       </a>
                     </li>
@@ -134,7 +134,7 @@
                       <a href="<?php echo base_url ?>admin/?page=system_info" class="nav-link nav-system_info">
                         <i class="nav-icon fas fa-cogs"></i>
                         <p>
-                          Settings
+                          Configuración
                         </p>
                       </a>
                     </li>

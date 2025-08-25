@@ -48,7 +48,7 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 
 // Verificar la firma del webhook (recomendado para producción)
 $signature = $_SERVER['HTTP_EVENT_SIGNATURE'] ?? '';
-$secret = 'prv_test_YOUR_PRIVATE_KEY'; // Reemplazar con tu private key de Wompi
+$secret = 'pub_test_7uCFxW8WrWZnhyaXf3sH9y99nXis5KxI'; // Reemplazar con tu private key de Wompi
 
 // Calcular la firma esperada
 $signature_calculated = hash_hmac('sha256', $payload, $secret);
