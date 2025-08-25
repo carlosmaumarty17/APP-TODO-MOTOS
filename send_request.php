@@ -22,23 +22,23 @@ require_once('config.php');
         <div class="row">
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="vehicle_type" class="control-label">Vehicle Type</label>
+                    <label for="vehicle_type" class="control-label">Tipo de Vehículo</label>
                     <input type="text" name="vehicle_type" id="vehicle_type" class="form-control form-control-sm rounded-0" required>
                 </div>
                 <div class="form-group">
-                    <label for="vehicle_name" class="control-label">Vehicle Name</label>
+                    <label for="vehicle_name" class="control-label">Marca del Vehículo</label>
                     <input type="text" name="vehicle_name" id="vehicle_name" class="form-control form-control-sm rounded-0" required>
                 </div>
                 <div class="form-group">
-                    <label for="vehicle_registration_number" class="control-label">Vehicle Registration Number</label>
+                    <label for="vehicle_registration_number" class="control-label">Placa del Vehículo</label>
                     <input type="text" name="vehicle_registration_number" id="vehicle_registration_number" class="form-control form-control-sm rounded-0" required>
                 </div>
                 <div class="form-group">
-                    <label for="vehicle_model" class="control-label">Vehicle Model</label>
+                    <label for="vehicle_model" class="control-label">Modelo del Vehículo</label>
                     <input type="text" name="vehicle_model" id="vehicle_model" class="form-control form-control-sm rounded-0" required>
                 </div>
                 <div class="form-group">
-                    <label for="service_id" class="control-label">Services</label>
+                    <label for="service_id" class="control-label">Servicios</label>
                     <select name="service_id[]" id="service_id" class="form-select form-select-sm select2 rounded-0" multiple required>
                         <option disabled></option>
                         <?php 
@@ -50,14 +50,14 @@ require_once('config.php');
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="service_type" class="control-label">Request Type</label>
+                    <label for="service_type" class="control-label">Tipo de Solicitud</label>
                     <select name="service_type" id="service_type" class="form-select form-select-sm select2 rounded-0" required>
-                        <option>Drop Off</option>
-                        <option>Pick Up</option>
+                        <option>Entrega en Taller</option>
+                        <option>Recogida a Domicilio</option>
                     </select>
                 </div>
                 <div class="form-group" style="display:none">
-                    <label for="pickup_address" class="control-label">Pick up Address</label>
+                    <label for="pickup_address" class="control-label">Dirección de Recogida</label>
                     <textarea rows="3" name="pickup_address" id="pickup_address" class="form-control form-control-sm rounded-0" style="resize:none"></textarea>
                 </div>
             </div>
@@ -65,8 +65,8 @@ require_once('config.php');
     </div>
         <div class="w-100 d-flex justify-content-end mx-2">
             <div class="col-auto">
-                <button class="btn btn-primary btn-sm rounded-0">Submit Request</button>
-                <button class="btn btn-dark btn-sm rounded-0" type="button" data-dismiss="modal">Close</button>
+                <button class="btn btn-primary btn-sm rounded-0">Enviar Solicitud</button>
+                <button class="btn btn-dark btn-sm rounded-0" type="button" data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </form>
@@ -74,12 +74,12 @@ require_once('config.php');
 <script>
     $(function(){
         $('.select2').select2({
-            placeholder:"Please Select Here",
+            placeholder:"Seleccione una opción",
             dropdownParent: $('#uni_modal')
         })
         $('#service_type').change(function(){
             var type = $(this).val().toLowerCase()
-            if(type == 'pick up'){
+            if(type == 'recogida a domicilio'){
                 $('#pickup_address').parent().show()
                 $('#pickup_address').attr('required',true)
             }else{
@@ -98,7 +98,7 @@ require_once('config.php');
                 dataType:'json',
                 error:err=>{
                     console.log(err)
-                    alert_toast("An error occured",'error');
+                    alert_toast("Ocurrió un error",'error');
                     end_loader()
                 },
                 success:function(resp){
@@ -108,7 +108,7 @@ require_once('config.php');
                     }else if(!!resp.msg){
                         alert_toast(resp.msg,'error')
                     }else{
-                        alert_toast("An error occured",'error');
+                        alert_toast("Ocurrió un error",'error');
                     }
                     end_loader()
                 }
