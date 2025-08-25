@@ -184,7 +184,13 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `date_add
 CREATE TABLE `order_list` (
   `id` int(30) NOT NULL,
   `ref_code` varchar(100) NOT NULL,
+  `reference` varchar(50) DEFAULT NULL,
   `client_id` int(30) NOT NULL,
+  `payment_method` varchar(20) DEFAULT NULL,
+  `payment_status` varchar(20) DEFAULT 'pending',
+  `payment_reference` varchar(100) DEFAULT NULL,
+  `payment_date` datetime DEFAULT NULL,
+  `wompi_transaction_id` varchar(100) DEFAULT NULL,
   `total_amount` float NOT NULL DEFAULT 0,
   `delivery_address` text NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '0=pending,1 = packed, 2 = for delivery, 3 = on the way, 4 = delivered, 5=cancelled',
@@ -435,7 +441,9 @@ ALTER TABLE `order_items`
 --
 ALTER TABLE `order_list`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `client_id` (`client_id`);
+  ADD KEY `client_id` (`client_id`),
+  ADD KEY `idx_reference` (`reference`),
+  ADD KEY `idx_payment_status` (`payment_status`);
 
 --
 -- Indexes for table `product_list`
