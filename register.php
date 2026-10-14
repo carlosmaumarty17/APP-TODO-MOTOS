@@ -1,203 +1,241 @@
 <?php require_once('./config.php') ?>
 <!DOCTYPE html>
 <html lang="en">
- <?php require_once('inc/header.php') ?>
+<?php require_once('inc/header.php') ?>
+
 <body class="">
   <script>
     start_loader()
   </script>
   <style>
-    html, body{
-      width:calc(100%);
-      height:calc(100%);
+    html,
+    body {
+      width: calc(100%);
+      height: calc(100%);
     }
-      body{
-         
-          background-image:url('<?= validate_image($_settings->info('cover')) ?>');
-          background-repeat: no-repeat;
-          background-size:cover;
+
+    body {
+
+      background-image: url('<?= validate_image($_settings->info('cover')) ?>');
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    #logo-img {
+      width: 15em;
+      height: 15em;
+      object-fit: scale-down;
+      object-position: center center;
+    }
+
+    .pass_type {
+      cursor: pointer;
+    }
+
+    /* Ajuste personalizado para el ancho de la tarjeta en diferentes pantallas */
+    @media (max-width: 768px) {
+      .card.w-md-75 {
+        width: 95% !important;
       }
-      #logo-img{
-          width:15em;
-          height:15em;
-          object-fit:scale-down;
-          object-position:center center;
+    }
+
+    @media (min-width: 769px) {
+      .card.w-md-75 {
+        width: 75% !important;
       }
-      .pass_type{
-        cursor: pointer;
-      }
+    }
   </style>
-<div class="d-flex align-items-center justify-content-center h-100">
-  <!-- /.login-logo -->
-  <div class="d-flex h-100 justify-content-center align-items-center col-lg-5">
-      <center><img src="<?= validate_image($_settings->info('logo')) ?>" alt="System Logo" class="img-thumbnail rounded-circle" id="logo-img"></center>
-      <div class="clear-fix my-2"></div>
-  </div>
-  <div class="d-flex h-100 justify-content-center align-items-center col-lg-7 bg-gradient-navy text-dark">
-    <div class="card card-outline card-primary w-75">
-      <div class="card-header text-center">
-        <a href="./" class="text-decoration-none text-dark"><b>Crear una Cuenta</b></a>
+  <div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="row w-100 m-0 h-100 align-items-center">
+      <!-- Logo Column (Hidden on small mobile, visible on larger screens) -->
+      <div
+        class="col-lg-5 col-md-5 d-none d-md-flex justify-content-center align-items-center h-100 bg-gradient-light shadow-sm">
+        <center>
+          <img src="<?= validate_image($_settings->info('logo')) ?>" alt="System Logo"
+            class="img-thumbnail rounded-circle" id="logo-img">
+          <h2 class="mt-3 font-weight-bold text-center text-primary px-3"><?= $_settings->info('name') ?></h2>
+        </center>
       </div>
-      <div class="card-body">
-        <form id="register-frm" action="" method="post">
-          <input type="hidden" name="id">
-          <div class="row">
-            <div class="form-group col-md-6">
-                <input type="text" name="firstname" id="firstname" placeholder="Ingrese sus nombres" autofocus class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Nombres</small>
+
+      <!-- Form Column -->
+      <div
+        class="col-lg-7 col-md-7 col-sm-12 h-100 d-flex justify-content-center align-items-center bg-gradient-navy text-dark py-5">
+        <div class="card card-outline card-primary w-100 w-md-75" style="max-width: 800px;">
+          <div class="card-header text-center">
+            <!-- Mobile Logo (Visible only on small screens) -->
+            <div class="d-md-none mb-3">
+              <img src="<?= validate_image($_settings->info('logo')) ?>" alt="System Logo"
+                class="img-thumbnail rounded-circle" style="width: 5em; height: 5em; object-fit: cover;">
             </div>
-            <div class="form-group col-md-6">
-                <input type="text" name="middlename" id="middlename" placeholder="Ingrese segundo nombre (opcional)" class="form-control form-control-sm form-control-border">
-                <small class="ml-3">Segundo Nombre</small>
-            </div>
-            <div class="form-group col-md-6">
-                <input type="text" name="lastname" id="lastname" placeholder="Ingrese sus apellidos" class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Apellidos</small>
-            </div>
+            <a href="./" class="text-decoration-none text-dark display-4 font-weight-bold">Crear una Cuenta</a>
           </div>
-          <div class="row">
-            <div class="form-group col-md-6">
-                  <select name="lastname" id="lastname" class="custom-select custom-select-sm form-control-border" required>
+          <div class="card-body">
+            <form id="register-frm" action="" method="post">
+              <input type="hidden" name="id">
+              <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                  <input type="text" name="firstname" id="firstname" placeholder="Ingrese sus nombres" autofocus
+                    class="form-control form-control-sm form-control-border" required>
+                  <small class="text-muted ml-2">Nombres</small>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                  <input type="text" name="middlename" id="middlename" placeholder="Ingrese segundo nombre (opcional)"
+                    class="form-control form-control-sm form-control-border">
+                  <small class="text-muted ml-2">Segundo Nombre</small>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                  <input type="text" name="lastname" id="lastname" placeholder="Ingrese sus apellidos"
+                    class="form-control form-control-sm form-control-border" required>
+                  <small class="text-muted ml-2">Apellidos</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                  <select name="gender" id="gender" class="custom-select custom-select-sm form-control-border" required>
+                    <!-- Fixed name from lastname to gender -->
                     <option>Masculino</option>
                     <option>Femenino</option>
                   </select>
-                  <small class="ml-3">Género</small>
-            </div>
-            <div class="form-group col-md-6">
-                <input type="text" name="contact" id="contact" placeholder="Ingrese número de contacto" class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Teléfono de contacto</small>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-12">
-              <small class="ml-3">Dirección</small>
-              <textarea name="address" id="address" rows="3" class="form-control form-control-sm rounded-0" placeholder="Calle 123 #45-67, Barrio, Ciudad, País"></textarea>
-            </div>
-          </div>
-          <hr>
-          <div class="row">
-            <div class="form-group col-md-6">
-                <input type="email" name="email" id="email" placeholder="correo@ejemplo.com" class="form-control form-control-sm form-control-border" required>
-                <small class="ml-3">Correo electrónico</small>
-            </div>
-          </div>
-          <div class="row">
-            <div class="form-group col-md-6">
-                <div class="input-group">
-                  <input type="password" name="password" id="password" placeholder="" class="form-control form-control-sm form-control-border" required>
-                  <div class="input-group-append border-bottom border-top-0 border-left-0 border-right-0">
-                    <span class="input-append-text text-sm"><i class="fa fa-eye-slash text-muted pass_type" data-type="password"></i></span>
-                  </div>
+                  <small class="text-muted ml-2">Género</small>
                 </div>
-                <small class="ml-3">Contraseña</small>
-            </div>
-            <div class="form-group col-md-6">
-                <div class="input-group">
-                  <input type="password" id="cpassword" placeholder="" class="form-control form-control-sm form-control-border" required>
-                  <div class="input-group-append border-bottom border-top-0 border-left-0 border-right-0">
-                    <span class="input-append-text text-sm"><i class="fa fa-eye-slash text-muted pass_type" data-type="password"></i></span>
-                  </div>
+                <div class="form-group col-md-6 col-sm-12">
+                  <input type="text" name="contact" id="contact" placeholder="Ingrese número de contacto"
+                    class="form-control form-control-sm form-control-border" required>
+                  <small class="text-muted ml-2">Teléfono de contacto</small>
                 </div>
-                <small class="ml-3">Confirmar Contraseña</small>
-            </div>
-          </div>
-          <div class="row align-items-center">
-            <div class="col-8">
-              <a href="<?php echo base_url ?>">Volver a la tienda</a>
-            </div>
-            <!-- /.col -->
-            <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-sm btn-flat btn-block">Registrarse</button>
-            </div>
-            <!-- /.col -->
-          </div>
-          <div class="row">
-              <div class="col-12 text-center">
-              <a href="<?php echo base_url.'login.php' ?>">¿Ya tienes una cuenta?</a>
               </div>
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <small class="text-muted ml-2">Dirección</small>
+                  <textarea name="address" id="address" rows="3" class="form-control form-control-sm rounded-0"
+                    placeholder="Calle 123 #45-67, Barrio, Ciudad, País"></textarea>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                  <input type="email" name="email" id="email" placeholder="correo@ejemplo.com"
+                    class="form-control form-control-sm form-control-border" required>
+                  <small class="text-muted ml-2">Correo electrónico</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-6 col-sm-12">
+                  <div class="input-group">
+                    <input type="password" name="password" id="password" placeholder=""
+                      class="form-control form-control-sm form-control-border" required>
+                    <div class="input-group-append border-bottom border-top-0 border-left-0 border-right-0">
+                      <span class="input-append-text text-sm"><i class="fa fa-eye-slash text-muted pass_type"
+                          data-type="password"></i></span>
+                    </div>
+                  </div>
+                  <small class="text-muted ml-2">Contraseña</small>
+                </div>
+                <div class="form-group col-md-6 col-sm-12">
+                  <div class="input-group">
+                    <input type="password" id="cpassword" placeholder=""
+                      class="form-control form-control-sm form-control-border" required>
+                    <div class="input-group-append border-bottom border-top-0 border-left-0 border-right-0">
+                      <span class="input-append-text text-sm"><i class="fa fa-eye-slash text-muted pass_type"
+                          data-type="password"></i></span>
+                    </div>
+                  </div>
+                  <small class="text-muted ml-2">Confirmar Contraseña</small>
+                </div>
+              </div>
+              <div class="row align-items-center mt-3">
+                <div class="col-8">
+                  <a href="<?php echo base_url ?>">Volver a la tienda</a>
+                </div>
+                <!-- /.col -->
+                <div class="col-4">
+                  <button type="submit" class="btn btn-primary btn-sm btn-flat btn-block">Registrarse</button>
+                </div>
+                <!-- /.col -->
+              </div>
+              <div class="row mt-2">
+                <div class="col-12 text-center">
+                  <a href="<?php echo base_url . 'login.php' ?>">¿Ya tienes una cuenta?</a>
+                </div>
+              </div>
+            </form>
+            <!-- /.social-auth-links -->
           </div>
-        </form>
-        <!-- /.social-auth-links -->
-
-        <!-- <p class="mb-1">
-          <a href="forgot-password.html">I forgot my password</a>
-        </p> -->
-        
+          <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
       </div>
-      <!-- /.card-body -->
     </div>
-    <!-- /.card -->
   </div>
 
-</div>
+  <script src="<?= base_url ?>plugins/jquery/jquery.min.js"></script>
+  <!-- Bootstrap 4 -->
+  <script src="<?= base_url ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- AdminLTE App -->
+  <!-- <script src="<?= base_url ?>dist/js/adminlte.min.js"></script> -->
 
-<script src="<?= base_url ?>plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="<?= base_url ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<!-- <script src="<?= base_url ?>dist/js/adminlte.min.js"></script> -->
-
-<script>
-  $(document).ready(function(){
-    end_loader();
-    $('.pass_type').click(function(){
-      var type = $(this).attr('data-type')
-      if(type == 'password'){
-        $(this).attr('data-type','text')
-        $(this).closest('.input-group').find('input').attr('type',"text")
-        $(this).removeClass("fa-eye-slash")
-        $(this).addClass("fa-eye")
-      }else{
-        $(this).attr('data-type','password')
-        $(this).closest('.input-group').find('input').attr('type',"password")
-        $(this).removeClass("fa-eye")
-        $(this).addClass("fa-eye-slash")
-      }
-    })
-    $('#register-frm').submit(function(e){
-      e.preventDefault()
-      var _this = $(this)
-			 $('.err-msg').remove();
-       var el = $('<div>')
-            el.hide()
-      if($('#password').val() != $('#cpassword').val()){
-        el.addClass('alert alert-danger err-msg').text('Las contraseñas no coinciden.');
-        _this.prepend(el)
-        el.show('slow')
-        return false;
-      }
-			start_loader();
-			$.ajax({
-				url:_base_url_+"classes/Users.php?f=save_client",
-				data: new FormData($(this)[0]),
-                cache: false,
-                contentType: false,
-                processData: false,
-                method: 'POST',
-                type: 'POST',
-                dataType: 'json',
-				error:err=>{
-					console.log(err)
-					alert_toast("Ocurrió un error",'error');
-					end_loader();
-				},
-				success:function(resp){
-					if(typeof resp =='object' && resp.status == 'success'){
-						location.href = "./login.php";
-					}else if(resp.status == 'failed' && !!resp.msg){   
+  <script>
+    $(document).ready(function () {
+      end_loader();
+      $('.pass_type').click(function () {
+        var type = $(this).attr('data-type')
+        if (type == 'password') {
+          $(this).attr('data-type', 'text')
+          $(this).closest('.input-group').find('input').attr('type', "text")
+          $(this).removeClass("fa-eye-slash")
+          $(this).addClass("fa-eye")
+        } else {
+          $(this).attr('data-type', 'password')
+          $(this).closest('.input-group').find('input').attr('type', "password")
+          $(this).removeClass("fa-eye")
+          $(this).addClass("fa-eye-slash")
+        }
+      })
+      $('#register-frm').submit(function (e) {
+        e.preventDefault()
+        var _this = $(this)
+        $('.err-msg').remove();
+        var el = $('<div>')
+        el.hide()
+        if ($('#password').val() != $('#cpassword').val()) {
+          el.addClass('alert alert-danger err-msg').text('Las contraseñas no coinciden.');
+          _this.prepend(el)
+          el.show('slow')
+          return false;
+        }
+        start_loader();
+        $.ajax({
+          url: _base_url_ + "classes/Users.php?f=save_client",
+          data: new FormData($(this)[0]),
+          cache: false,
+          contentType: false,
+          processData: false,
+          method: 'POST',
+          type: 'POST',
+          dataType: 'json',
+          error: err => {
+            console.log(err)
+            alert_toast("Ocurrió un error", 'error');
+            end_loader();
+          },
+          success: function (resp) {
+            if (typeof resp == 'object' && resp.status == 'success') {
+              location.href = "./login.php";
+            } else if (resp.status == 'failed' && !!resp.msg) {
               el.addClass("alert alert-danger err-msg").text(resp.msg)
               _this.prepend(el)
               el.show('slow')
-          }else{
-						alert_toast("Ocurrió un error",'error');
-						end_loader();
-                        console.log(resp)
-					}
-          $('html, body').scrollTop(0)
-				}
-			})
+            } else {
+              alert_toast("Ocurrió un error", 'error');
+              end_loader();
+              console.log(resp)
+            }
+            $('html, body').scrollTop(0)
+          }
+        })
+      })
     })
-  })
-</script>
+  </script>
 </body>
+
 </html>

@@ -51,10 +51,12 @@
         width: 100% !important;
         max-width: unset;
     }
+
     .modal-dialog.mid-large {
         width: 100% !important;
         max-width: unset;
     }
+
     .modal-dialog {
         margin: unset !important;
     }
@@ -208,4 +210,61 @@ label.star:before {
 .price-tag {
     bottom: 1em;
     right: 1em;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 768px) {
+    #main-header {
+        height: 50vh !important;
+        min-height: 300px;
+    }
+
+    #main-header h1 {
+        font-size: 2rem;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .product-img-holder {
+        height: 15em;
+    }
+
+    .brand-img-holder {
+        height: 10em;
+    }
+
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    /* Mejora espaciado en tarjetas de producto */
+    .product-item .card-body {
+        padding: 1rem;
+    }
+
+    /* Ajuste de botones en móvil */
+    .btn-lg {
+        padding: 0.5rem 1rem;
+        font-size: 1.1rem;
+    }
+
+    /* Ajustes para el modal en móvil */
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    /* Mejora de visibilidad del botón de menú móvil */
+    .navbar-toggler {
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Fondo oscuro semitransparente */
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        /* Borde claro */
+        border-radius: 5px;
+        padding: 5px 10px;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+    }
 }
